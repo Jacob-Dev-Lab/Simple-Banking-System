@@ -1,0 +1,37 @@
+﻿using SimpleBankingSystem.Interface;
+using SimpleBankingSystem.Utilities;
+
+namespace SimpleBankingSystem.Repo
+{
+    class AccountRepository : AccountValidator, IAccountRepository
+    {
+        private static readonly List<Account> _accounts = [];
+        public void Add(Account account)
+        {
+            if (account == null)
+                throw new ArgumentNullException(nameof(account));
+
+            if (_accounts.Contains(account))
+                throw new ArgumentException("Account Exist");
+
+            _accounts.Add(account);
+        }
+
+        public Account? GetByNumber(string accountNumber)
+        {
+            ValidateAccountNumber(accountNumber);
+
+            return _accounts.FirstOrDefault(a => a.AccountNumber == accountNumber);
+        }
+
+        public IReadOnlyCollection<Account> GetById(Guid customerID)
+        {
+            return _accounts.FindAll(x => x.CustomerID == customerID);
+        }
+
+        public void Save(Account account)
+        {
+            //To Be Implemented in the Future For Persistence
+        }
+    }
+}

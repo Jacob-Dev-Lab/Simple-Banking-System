@@ -1,0 +1,4 @@
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.AssemblyInfoInputs.cache
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.AssemblyInfo.cs
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.csproj.CoreCompileInputs.cache

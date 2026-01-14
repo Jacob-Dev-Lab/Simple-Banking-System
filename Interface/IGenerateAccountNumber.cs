@@ -1,0 +1,4 @@
+interface IGenerateAccountNumber
+{
+    string Generate();
+}
