@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SimpleBankingSystem.Interface;
+using SimpleBankingSystem.Interfaces;
 using SimpleBankingSystem.Utilities;
 
-namespace SimpleBankingSystem.Repo
+namespace SimpleBankingSystem.Repositories
 {
     internal class CustomerRepository : AccountValidator, ICustomerRepository
     {
@@ -13,7 +13,10 @@ namespace SimpleBankingSystem.Repo
             if (customer == null)
                 throw new ArgumentNullException(nameof(customer));
 
-            if (_customers.Contains(customer))
+            Customer? existingCustomer = _customers.FirstOrDefault
+                (c => c.DateOfBirth == customer.DateOfBirth && c.Email == customer.Email);
+
+            if (existingCustomer != null)
                 throw new ArgumentException("Existing Customer");
 
             _customers.Add(customer);

@@ -2,3 +2,14 @@ C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Deb
 C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.AssemblyInfoInputs.cache
 C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.AssemblyInfo.cs
 C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.csproj.CoreCompileInputs.cache
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.sourcelink.json
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\bin\Debug\net9.0\SimpleBankingSystem.exe
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\bin\Debug\net9.0\SimpleBankingSystem.deps.json
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\bin\Debug\net9.0\SimpleBankingSystem.runtimeconfig.json
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\bin\Debug\net9.0\SimpleBankingSystem.dll
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\bin\Debug\net9.0\SimpleBankingSystem.pdb
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.dll
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\refint\SimpleBankingSystem.dll
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.pdb
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\SimpleBankingSystem.genruntimeconfig.cache
+C:\Users\folor\OneDrive\Desktop\C# Trainning\WeekOne\SimpleBankingSystem\obj\Debug\net9.0\ref\SimpleBankingSystem.dll

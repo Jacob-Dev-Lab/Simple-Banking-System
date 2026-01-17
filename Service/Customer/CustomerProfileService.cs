@@ -3,28 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SimpleBankingSystem.Interface;
-using SimpleBankingSystem.Repo;
+using SimpleBankingSystem.Interfaces;
 
 namespace SimpleBankingSystem.Service.Customer
 {
-    internal class CustomerProfileService
+    internal class CustomerProfileService : ICustomerProfileService
     {
         private readonly ICustomerRepository _customerRepository;
-        private readonly IAccountRepository _accountRepository;
 
-        public CustomerProfileService(ICustomerRepository customerRepository, IAccountRepository accountRepository)
+        public CustomerProfileService(ICustomerRepository customerRepository)
         {
             _customerRepository = customerRepository;
-            _accountRepository = accountRepository;
         }
 
-        public void UpdateLastname(Guid accountID, string lastname)
+        public void UpdateLastName(Guid customerID, string lastname)
         {
-            var customer = _customerRepository.GetById(accountID) ??
+            var customer = _customerRepository.GetById(customerID) ??
                 throw new KeyNotFoundException("Customer not found.");
 
             customer.ChangeLastname(lastname);
+
+            _customerRepository.Save(customer);
+        }
+        public void UpdateEmailAddress(Guid customerID, string emailAddress)
+        {
+            var customer = _customerRepository.GetById(customerID) ??
+                throw new KeyNotFoundException("Customer not found.");
+
+            customer.ChangeEmailAddress(emailAddress);
 
             _customerRepository.Save(customer);
         }

@@ -1,24 +1,28 @@
-class Customer(string lastName, string otherNames, DateOnly dateOfBirth)
-    //string address, string meansOfIdentification, string nationality)
+class Customer(string lastName, string otherNames, DateOnly dateOfBirth, string email)
 {
-    public Guid CustomerId {get;} = Guid.NewGuid();
-    public string Lastname {get; private set;} = lastName;
-    public string OtherNames {get; private set;} = otherNames;
-    public DateOnly DateOfBirth {get;} = dateOfBirth;
-
-    //public string Address {get; set;} = address;
-    //public string MeansOfIdentification {get; private set;} = meansOfIdentification;
-    //public string Nationality {get; private set;} = nationality;
+    public Guid CustomerId { get; } = Guid.NewGuid();
+    public string LastName { get; private set; } = lastName;
+    public string OtherNames { get; private set; } = otherNames;
+    public DateOnly DateOfBirth { get; } = dateOfBirth;
+    public string Email { get; set; } = email;
 
     private readonly List<string> _accountNumbers = [];
     public IReadOnlyCollection<string> AccountNumbers => _accountNumbers.AsReadOnly();
 
-    public void ChangeLastname(string lastName)
+    public void LinkAccountNumber(string accountNumber)
     {
-        Lastname = lastName;
+        if (accountNumber == null)
+            throw new ArgumentNullException(nameof(accountNumber));
+
+        _accountNumbers.Add(accountNumber);
     }
-    public void ChangeAddress(string lastName)
+
+    public void ChangeLastname(string newLastName)
     {
-        Lastname = lastName;
+        LastName = newLastName;
+    }
+    public void ChangeEmailAddress(string newEmailAddress)
+    {
+        Email = newEmailAddress;
     }
 }

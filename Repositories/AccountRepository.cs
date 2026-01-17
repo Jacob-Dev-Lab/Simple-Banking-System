@@ -1,7 +1,7 @@
-﻿using SimpleBankingSystem.Interface;
+﻿using SimpleBankingSystem.Interfaces;
 using SimpleBankingSystem.Utilities;
 
-namespace SimpleBankingSystem.Repo
+namespace SimpleBankingSystem.Repositories
 {
     class AccountRepository : AccountValidator, IAccountRepository
     {

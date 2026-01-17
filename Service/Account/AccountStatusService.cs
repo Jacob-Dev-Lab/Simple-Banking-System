@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SimpleBankingSystem.Interface;
+using SimpleBankingSystem.Interfaces;
 
 namespace SimpleBankingSystem.Service.Account
 {
-    internal class AccountStatusService
+    internal class AccountStatusService : IAccountStatusService
     {
         private readonly IAccountRepository _accountRepository;
 
@@ -21,7 +21,7 @@ namespace SimpleBankingSystem.Service.Account
             var account = _accountRepository.GetByNumber(accountNumber);
 
             if (account == null)
-                throw new ArgumentNullException("Wrong account number" + nameof(accountNumber));
+                throw new KeyNotFoundException("Wrong account number" + nameof(accountNumber));
 
             account.Activate();
         }

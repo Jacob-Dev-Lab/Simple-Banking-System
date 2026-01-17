@@ -1,43 +1,47 @@
-﻿using SimpleBankingSystem.Interface;
-using SimpleBankingSystem.Repo;
+﻿using SimpleBankingSystem.Interfaces;
 
 namespace SimpleBankingSystem.Service.Account
 {
-    internal class AccountOpeningService
+    internal class AccountOpeningService : IAccountOpeningService
     {
-        private readonly ICustomerRepository _customerRepository;
         private readonly IAccountRepository _accountRepository;
         private readonly IGenerateAccountNumber _generateAccountNumber;
 
-        public AccountOpeningService(ICustomerRepository customerRepository,
-            IGenerateAccountNumber generateAccountNumber, IAccountRepository accountRepository)
+        public AccountOpeningService(IGenerateAccountNumber generateAccountNumber, IAccountRepository accountRepository)
         {
-            _customerRepository = customerRepository;
             _generateAccountNumber = generateAccountNumber;
             _accountRepository = accountRepository;
         }
 
-        public void OpenSavingsAccount(Guid customerID, string accountNumber)
+        public string OpenSavingsAccount(Guid customerID)
         {
-            HasAccountType(customerID, "Savings");
+            string type = "SavingsAccount";
+            HasAccountType(customerID, type);
 
-            var account = new SavingsAccount(customerID, accountNumber);
+            string savingsAccountNumber = _generateAccountNumber.Generate();
+            var account = new SavingsAccount(customerID, savingsAccountNumber);
             _accountRepository.Add(account);
+
+            return savingsAccountNumber;
         }
 
-        public void OpenCurrentAccount(Guid customerID, string accountNumber)
+        public string OpenCurrentAccount(Guid customerID)
         {
-            HasAccountType(customerID, "Current");
+            string type = "CurrentAccount";
+            HasAccountType(customerID, type);
 
-            var account = new CurrentAccount(customerID, accountNumber);
+            string currentAccountNumber = _generateAccountNumber.Generate();
+            var account = new CurrentAccount(customerID, currentAccountNumber);
             _accountRepository.Add(account);
+
+            return currentAccountNumber;
         }
 
         public void HasAccountType(Guid customerID, string type)
         {
             var accounts = _accountRepository.GetById(customerID);
 
-            if (accounts.Count > 0 && accounts.Any(x => x.Type == type))
+            if (accounts.Count > 0 && accounts.Any(x => x.GetType().Equals(type)))
                 throw new InvalidOperationException("Existing Savings Account Found");
         }
 

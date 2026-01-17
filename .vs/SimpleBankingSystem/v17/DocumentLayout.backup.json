@@ -3,28 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\interface\\iaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:interface\\iaccountrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\interface\\icustomerrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:interface\\icustomerrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\presentation\\userinputoutput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:presentation\\userinputoutput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\repositories\\customerrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:repositories\\customerrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\domain\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:domain\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\interface\\iaccountmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:interface\\iaccountmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\abstract\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:abstract\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\service\\account\\accountqueryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:service\\account\\accountqueryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,84 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AccountQueryService.cs",
+              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Service\\Account\\AccountQueryService.cs",
+              "RelativeDocumentMoniker": "Service\\Account\\AccountQueryService.cs",
+              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Service\\Account\\AccountQueryService.cs",
+              "RelativeToolTip": "Service\\Account\\AccountQueryService.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAhwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-17T07:21:07.086Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "IAccountRepo.cs",
-              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Interface\\IAccountRepo.cs",
-              "RelativeDocumentMoniker": "Interface\\IAccountRepo.cs",
-              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Interface\\IAccountRepo.cs*",
-              "RelativeToolTip": "Interface\\IAccountRepo.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAUAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAUwKYAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T18:17:13.13Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "IAccountManager.cs",
-              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Interface\\IAccountManager.cs",
-              "RelativeDocumentMoniker": "Interface\\IAccountManager.cs",
-              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Interface\\IAccountManager.cs*",
-              "RelativeToolTip": "Interface\\IAccountManager.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T18:05:13.906Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Account.cs",
-              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Abstract\\Account.cs",
-              "RelativeDocumentMoniker": "Abstract\\Account.cs",
-              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Abstract\\Account.cs",
-              "RelativeToolTip": "Abstract\\Account.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T15:20:32.08Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Customer.cs",
-              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Domain\\Customer.cs",
-              "RelativeDocumentMoniker": "Domain\\Customer.cs",
-              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Domain\\Customer.cs",
-              "RelativeToolTip": "Domain\\Customer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBMAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T15:17:56.278Z",
+              "WhenOpened": "2026-01-17T06:46:24.013Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ICustomerRepo.cs",
-              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Interface\\ICustomerRepo.cs",
-              "RelativeDocumentMoniker": "Interface\\ICustomerRepo.cs",
-              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Interface\\ICustomerRepo.cs",
-              "RelativeToolTip": "Interface\\ICustomerRepo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAArAAAAAAAAAA==",
+              "Title": "UserInputOutput.cs",
+              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Presentation\\UserInputOutput.cs",
+              "RelativeDocumentMoniker": "Presentation\\UserInputOutput.cs",
+              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Presentation\\UserInputOutput.cs",
+              "RelativeToolTip": "Presentation\\UserInputOutput.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAIwH4AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T15:12:35.604Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CustomerRepo.cs",
-              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Repositories\\CustomerRepo.cs",
-              "RelativeDocumentMoniker": "Repositories\\CustomerRepo.cs",
-              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Repositories\\CustomerRepo.cs",
-              "RelativeToolTip": "Repositories\\CustomerRepo.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvxQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-13T14:59:04.646Z",
+              "WhenOpened": "2026-01-17T06:43:29.995Z",
               "EditorCaption": ""
             }
           ]

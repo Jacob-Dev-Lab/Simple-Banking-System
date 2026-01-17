@@ -1,6 +1,6 @@
 ﻿internal class Transaction (string accountNumber, decimal amount, string transactionType)
 {
-    public Guid ID { get; } = new Guid();
+    public Guid TransactionID { get; } = new Guid();
     public string AccountNumber { get; } = accountNumber;
     public decimal Amount { get; } = amount;
     public string TransactionType { get; } = transactionType;

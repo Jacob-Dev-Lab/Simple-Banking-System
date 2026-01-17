@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleBankingSystem.Interface
+namespace SimpleBankingSystem.Interfaces
 {
     internal interface IAccountRepository
     {
