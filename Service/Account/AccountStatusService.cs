@@ -19,20 +19,12 @@ namespace SimpleBankingSystem.Service.Account
         public void ActivateAccount(string accountNumber)
         {
             var account = _accountRepository.GetByNumber(accountNumber);
-
-            if (account == null)
-                throw new KeyNotFoundException("Wrong account number" + nameof(accountNumber));
-
             account.Activate();
         }
 
         public void DeActivateAccount(string accountNumber)
         {
             var account = _accountRepository.GetByNumber(accountNumber);
-
-            if (account == null)
-                throw new ArgumentNullException("Wrong account number" + nameof(accountNumber));
-
             account.Deactivate();
         }
     }

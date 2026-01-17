@@ -18,20 +18,14 @@ namespace SimpleBankingSystem.Service.Customer
 
         public void UpdateLastName(Guid customerID, string lastname)
         {
-            var customer = _customerRepository.GetById(customerID) ??
-                throw new KeyNotFoundException("Customer not found.");
-
+            var customer = _customerRepository.GetById(customerID);
             customer.ChangeLastname(lastname);
-
             _customerRepository.Save(customer);
         }
         public void UpdateEmailAddress(Guid customerID, string emailAddress)
         {
-            var customer = _customerRepository.GetById(customerID) ??
-                throw new KeyNotFoundException("Customer not found.");
-
+            var customer = _customerRepository.GetById(customerID);
             customer.ChangeEmailAddress(emailAddress);
-
             _customerRepository.Save(customer);
         }
     }

@@ -1,4 +1,5 @@
 ﻿using SimpleBankingSystem.Interfaces;
+using SimpleBankingSystem.Domain;
 
 namespace SimpleBankingSystem.Service.Account
 {
@@ -41,7 +42,7 @@ namespace SimpleBankingSystem.Service.Account
         {
             var accounts = _accountRepository.GetById(customerID);
 
-            if (accounts.Count > 0 && accounts.Any(x => x.GetType().Equals(type)))
+            if (accounts.Count > 0 && accounts.Any(x => x.GetType().ToString().Equals(type)))
                 throw new InvalidOperationException("Existing Savings Account Found");
         }
 

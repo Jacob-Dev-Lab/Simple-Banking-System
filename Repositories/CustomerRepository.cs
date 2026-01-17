@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SimpleBankingSystem.Interfaces;
 using SimpleBankingSystem.Utilities;
+using SimpleBankingSystem.Domain;
 
 namespace SimpleBankingSystem.Repositories
 {
@@ -17,14 +18,15 @@ namespace SimpleBankingSystem.Repositories
                 (c => c.DateOfBirth == customer.DateOfBirth && c.Email == customer.Email);
 
             if (existingCustomer != null)
-                throw new ArgumentException("Existing Customer");
+                throw new InvalidOperationException("Customer already exist");
 
             _customers.Add(customer);
         }
 
-        public Customer? GetById(Guid customerID)
+        public Customer GetById(Guid customerID)
         {
-            return _customers.FirstOrDefault(x => x.CustomerId == customerID);
+            return _customers.FirstOrDefault(x => x.CustomerId == customerID) ??
+                throw new KeyNotFoundException("Customer does not exist/incorrect customer information");
         }
 
         public void Save(Customer customer)

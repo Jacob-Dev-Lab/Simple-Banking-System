@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\presentation\\userinputoutput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:presentation\\userinputoutput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\service\\account\\accountopeningservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:service\\account\\accountopeningservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\service\\account\\accountqueryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:service\\account\\accountqueryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\abstract\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:abstract\\account.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|c:\\users\\folor\\onedrive\\desktop\\c# trainning\\weekone\\simplebankingsystem\\domain\\currentaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A9FEE5A-1A1A-6253-DD75-C5720102C9D0}|SimpleBankingSystem.csproj|solutionrelative:domain\\currentaccount.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,11 +34,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "AccountOpeningService.cs",
+              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Service\\Account\\AccountOpeningService.cs",
+              "RelativeDocumentMoniker": "Service\\Account\\AccountOpeningService.cs",
+              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Service\\Account\\AccountOpeningService.cs",
+              "RelativeToolTip": "Service\\Account\\AccountOpeningService.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAIwCkAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-17T08:19:09.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CurrentAccount.cs",
+              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Domain\\CurrentAccount.cs",
+              "RelativeDocumentMoniker": "Domain\\CurrentAccount.cs",
+              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Domain\\CurrentAccount.cs",
+              "RelativeToolTip": "Domain\\CurrentAccount.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-17T08:20:04.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Account.cs",
+              "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Abstract\\Account.cs",
+              "RelativeDocumentMoniker": "Abstract\\Account.cs",
+              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Abstract\\Account.cs",
+              "RelativeToolTip": "Abstract\\Account.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAwwCAAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-17T08:19:54.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "AccountQueryService.cs",
               "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Service\\Account\\AccountQueryService.cs",
               "RelativeDocumentMoniker": "Service\\Account\\AccountQueryService.cs",
@@ -39,26 +90,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAUwKYAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAADwv5cAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-17T06:46:24.013Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "UserInputOutput.cs",
               "DocumentMoniker": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Presentation\\UserInputOutput.cs",
               "RelativeDocumentMoniker": "Presentation\\UserInputOutput.cs",
-              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Presentation\\UserInputOutput.cs",
-              "RelativeToolTip": "Presentation\\UserInputOutput.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAIwH4AAAAbAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\folor\\OneDrive\\Desktop\\C# Trainning\\WeekOne\\SimpleBankingSystem\\Presentation\\UserInputOutput.cs*",
+              "RelativeToolTip": "Presentation\\UserInputOutput.cs*",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAwwE0AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-17T06:43:29.995Z",
               "EditorCaption": ""

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SimpleBankingSystem.Domain;
 
 namespace SimpleBankingSystem.Interfaces
 {
     internal interface IAccountRepository
     {
         void Add(Account account);
-        Account? GetByNumber(string accountNumber);
+        Account GetByNumber(string accountNumber);
         IReadOnlyCollection<Account> GetById(Guid accountGuid);
         void Save(Account account);
     }

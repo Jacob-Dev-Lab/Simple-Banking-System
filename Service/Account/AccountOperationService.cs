@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SimpleBankingSystem.Interfaces;
+﻿using SimpleBankingSystem.Interfaces;
+using SimpleBankingSystem.Domain;
 
 namespace SimpleBankingSystem.Service.Account
 {
@@ -21,27 +17,21 @@ namespace SimpleBankingSystem.Service.Account
         public void Deposit(string accountNumber, decimal amount)
         {
             var account = _accountRepository.GetByNumber(accountNumber);
-
-            if (account == null)
-                throw new ArgumentNullException("Wrong account number" + nameof(accountNumber));
-
             account.Deposit(amount);
 
             Transaction transaction = new(accountNumber, amount, "Deposit");
             _transactionRepository.Add(transaction);
+            account.LinkTransaction(transaction.TransactionID);
         }
 
         public void Withdraw(string accountNumber, decimal amount)
         {
             var account = _accountRepository.GetByNumber(accountNumber);
-
-            if (account == null)
-                throw new ArgumentNullException("Wrong account number" + nameof(accountNumber));
-
             account.Withdraw(amount);
 
             Transaction transaction = new(accountNumber, amount, "Withrawal");
             _transactionRepository.Add(transaction);
+            account.LinkTransaction(transaction.TransactionID);
         }
     }
 }

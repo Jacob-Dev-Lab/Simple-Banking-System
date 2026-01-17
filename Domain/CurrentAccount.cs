@@ -1,15 +1,18 @@
-sealed class CurrentAccount(Guid customerID, string accountNumber) : Account ( customerID, accountNumber)
+namespace SimpleBankingSystem.Domain
 {
-    public string? Type { get; } = "Current";
-
-    public override void Withdraw(decimal amount)
+    sealed class CurrentAccount(Guid customerID, string accountNumber) : Account(customerID, accountNumber)
     {
-        EnsureAccountIsActive();
-        ValidateAmount(amount);
+        public string? Type { get; } = "Current";
 
-        if (amount > Balance)
-            throw new InvalidOperationException("Insufficient Balance");
+        public override void Withdraw(decimal amount)
+        {
+            EnsureAccountIsActive();
+            ValidateAmount(amount);
 
-        Balance -= amount;
+            if (amount > Balance)
+                throw new InvalidOperationException("Insufficient Balance");
+
+            Balance -= amount;
+        }
     }
 }

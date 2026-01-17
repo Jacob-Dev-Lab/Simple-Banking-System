@@ -8,8 +8,8 @@ namespace SimpleBankingSystem.Presentation
         {
             string value;
             bool valid;
-
             Console.Write(prompt);
+
             do
             {
                 value = Console.ReadLine() ?? string.Empty;
@@ -26,7 +26,6 @@ namespace SimpleBankingSystem.Presentation
         public static DateOnly GetUserDateOfBirth(string prompt)
         {
             DateOnly dateOfBirth;
-
             Console.Write(prompt);
 
             while (!DateOnly.TryParse(Console.ReadLine(), out dateOfBirth))
@@ -41,8 +40,8 @@ namespace SimpleBankingSystem.Presentation
         {
             string email;
             bool valid;
-
             Console.Write(prompt);
+
             do
             {
                 email = Console.ReadLine() ?? string.Empty;
@@ -60,8 +59,8 @@ namespace SimpleBankingSystem.Presentation
         {
             int option;
             bool valid;
-
             Console.Write(prompt);
+
             do
             {
                 valid = int.TryParse(Console.ReadLine(), out option) && (option >= min && option <= max);
@@ -78,8 +77,8 @@ namespace SimpleBankingSystem.Presentation
         {
             Console.WriteLine("1. Open New Account");
             Console.WriteLine("2. Open an Additional Account");
-            Console.WriteLine("3. Do a Deposit");
-            Console.WriteLine("4. Do a Withdraw");
+            Console.WriteLine("3. Make a Deposit");
+            Console.WriteLine("4. Make a Withdraw");
             Console.WriteLine("5. Check Account Balance");
             Console.WriteLine("6. Print Account Statement");
             Console.WriteLine("7. Update Customer Profile");
@@ -159,7 +158,7 @@ namespace SimpleBankingSystem.Presentation
             Console.Write(prompt);
             do
             {
-                valid = decimal.TryParse(Console.ReadLine(), out value) && value > 0;
+                valid = decimal.TryParse(Console.ReadLine(), out value);
 
                 if (!valid)
                     Console.WriteLine("Invalid Entry, try again: ");

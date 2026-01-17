@@ -1,5 +1,6 @@
 ﻿using SimpleBankingSystem.Interfaces;
 using SimpleBankingSystem.Utilities;
+using SimpleBankingSystem.Domain;
 
 namespace SimpleBankingSystem.Repositories
 {
@@ -12,16 +13,17 @@ namespace SimpleBankingSystem.Repositories
                 throw new ArgumentNullException(nameof(account));
 
             if (_accounts.Contains(account))
-                throw new ArgumentException("Account Exist");
+                throw new InvalidOperationException("Account already exists.");
 
             _accounts.Add(account);
         }
 
-        public Account? GetByNumber(string accountNumber)
+        public Account GetByNumber(string accountNumber)
         {
             ValidateAccountNumber(accountNumber);
 
-            return _accounts.FirstOrDefault(a => a.AccountNumber == accountNumber);
+            return _accounts.FirstOrDefault(a => a.AccountNumber == accountNumber) ??
+                throw new KeyNotFoundException("Account number does not exist/invalid");
         }
 
         public IReadOnlyCollection<Account> GetById(Guid customerID)

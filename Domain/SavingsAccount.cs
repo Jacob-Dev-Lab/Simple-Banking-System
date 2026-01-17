@@ -1,20 +1,23 @@
-sealed class SavingsAccount(Guid customerID, string accountNumber) : Account (customerID, accountNumber)
+namespace SimpleBankingSystem.Domain
 {
-    public string? Type { get; } = "Savings";
-
-    private static readonly decimal _minimumBalance = 50m;
-
-    public override void Withdraw(decimal amount)
+    sealed class SavingsAccount(Guid customerID, string accountNumber) : Account(customerID, accountNumber)
     {
-        EnsureAccountIsActive();
-        ValidateAmount(amount);
+        public string? Type { get; } = "Savings";
 
-        if (amount > Balance)
-            throw new InvalidOperationException("Insufficient Balance");
+        private static readonly decimal _minimumBalance = 50m;
 
-        if (Balance - amount < _minimumBalance)
-            throw new InvalidOperationException("Violates Minimum Balance");
+        public override void Withdraw(decimal amount)
+        {
+            EnsureAccountIsActive();
+            ValidateAmount(amount);
 
-        Balance -= amount;
+            if (amount > Balance)
+                throw new InvalidOperationException("Insufficient Balance");
+
+            if (Balance - amount < _minimumBalance)
+                throw new InvalidOperationException("Violates Minimum Balance");
+
+            Balance -= amount;
+        }
     }
 }

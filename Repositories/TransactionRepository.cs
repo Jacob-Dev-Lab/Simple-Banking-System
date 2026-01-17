@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SimpleBankingSystem.Interfaces;
+﻿using SimpleBankingSystem.Interfaces;
 using SimpleBankingSystem.Utilities;
+using SimpleBankingSystem.Domain;
 
 namespace SimpleBankingSystem.Repositories
 {
@@ -17,7 +13,7 @@ namespace SimpleBankingSystem.Repositories
                 throw new ArgumentNullException(nameof(transaction));
 
             if (_transactions.Contains(transaction))
-                throw new ArgumentException("Duplicate Transaction detected! Try again");
+                throw new InvalidOperationException("Transaction already exists.");
 
             _transactions.Add(transaction);
         }

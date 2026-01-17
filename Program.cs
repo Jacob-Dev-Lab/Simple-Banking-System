@@ -3,6 +3,8 @@ using SimpleBankingSystem.Presentation;
 using SimpleBankingSystem.Repositories;
 using SimpleBankingSystem.Service.Account;
 using SimpleBankingSystem.Service.Customer;
+using SimpleBankingSystem.Utilities;
+using SimpleBankingSystem.Domain;
 
 namespace SimpleBankingSystem
 {
@@ -49,8 +51,7 @@ namespace SimpleBankingSystem
                                     customerRepository.Add(newCustomer);
                                     string accountNumber = accountOpeningService.OpenSavingsAccount(newCustomer.CustomerId);
                                     newCustomer.LinkAccountNumber(accountNumber);
-
-                                    Console.WriteLine($"Congratulations... your savings account is {accountNumber}");
+                                    Console.WriteLine($"Congratulations... your account number is {accountNumber}");
                                 }
                                 catch (Exception ex)
                                 {
@@ -64,7 +65,6 @@ namespace SimpleBankingSystem
                                     customerRepository.Add(newCustomer);
                                     string accountNumber = accountOpeningService.OpenCurrentAccount(newCustomer.CustomerId);
                                     newCustomer.LinkAccountNumber(accountNumber);
-
                                     Console.WriteLine($"Congratulations... your current account is {accountNumber}");
                                 }
                                 catch (Exception ex)
@@ -89,14 +89,7 @@ namespace SimpleBankingSystem
                                 try
                                 {
                                     string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
-                                    Account? existingCurrentaccount = accountRepository.GetByNumber(existingAccountNumber);
-
-                                    if (existingCurrentaccount == null)
-                                    {
-                                        Console.WriteLine("Account number not valid.");
-                                        break;
-                                    }
-
+                                    Account existingCurrentaccount = accountRepository.GetByNumber(existingAccountNumber);
                                     string newSavingsAccountNumber = accountOpeningService.OpenSavingsAccount(existingCurrentaccount.CustomerID);
                                     Console.WriteLine($"Congratulations... your savings account is {newSavingsAccountNumber}");
                                 }
@@ -111,13 +104,6 @@ namespace SimpleBankingSystem
                                 {
                                     string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
                                     Account? existingSavingsaccount = accountRepository.GetByNumber(existingAccountNumber);
-
-                                    if (existingSavingsaccount == null)
-                                    {
-                                        Console.WriteLine("Account number not valid.");
-                                        break;
-                                    }
-
                                     string newCurrentAccountNumber = accountOpeningService.OpenCurrentAccount(existingSavingsaccount.CustomerID);
                                     Console.WriteLine($"Congratulations... your current account is {newCurrentAccountNumber}");
                                 }
@@ -154,7 +140,7 @@ namespace SimpleBankingSystem
                         {
                             string withdrawalAccountNumber = UserInputOutput.GetAccountString("Kindly enter account number: ");
                             decimal withdrawalAmount = UserInputOutput.GetDecimalInput("Kindly enter deposit amount: ");
-                            accountOperationService.Deposit(withdrawalAccountNumber, withdrawalAmount);
+                            accountOperationService.Withdraw(withdrawalAccountNumber, withdrawalAmount);
                             Console.WriteLine($"{withdrawalAmount} Withdrawal transaction successsful");
                         }
                         catch (Exception ex)
@@ -211,16 +197,9 @@ namespace SimpleBankingSystem
                             case 1:
                                 try
                                 {
-                                    string newLastname = UserInputOutput.GetUserInputString("Kindly enter your Lastname: ");
                                     string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
-                                    Account? customersAccount = accountRepository.GetByNumber(existingAccountNumber);
-
-                                    if (customersAccount == null)
-                                    {
-                                        Console.WriteLine("Account number not valid.");
-                                        break;
-                                    }
-
+                                    string newLastname = UserInputOutput.GetUserInputString("Kindly enter your Lastname: ");
+                                    Account customersAccount = accountRepository.GetByNumber(existingAccountNumber);
                                     customerProfileService.UpdateLastName(customersAccount.CustomerID, newLastname);
                                     Console.WriteLine($"Lastname Updated Successfully");
                                 }
@@ -234,15 +213,9 @@ namespace SimpleBankingSystem
                             case 2:
                                 try
                                 {
-                                    string newEmailAddress = UserInputOutput.GetUserEmailString("Kindly enter your new email address: ");
                                     string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
+                                    string newEmailAddress = UserInputOutput.GetUserEmailString("Kindly enter your new email address: ");
                                     Account? customersAccount = accountRepository.GetByNumber(existingAccountNumber);
-
-                                    if (customersAccount == null)
-                                    {
-                                        Console.WriteLine("Account number not valid.");
-                                        break;
-                                    }
 
                                     customerProfileService.UpdateEmailAddress(customersAccount.CustomerID, newEmailAddress);
                                     Console.WriteLine($"Email address Updated Successfully");
