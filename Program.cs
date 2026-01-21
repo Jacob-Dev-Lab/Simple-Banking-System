@@ -1,9 +1,10 @@
-﻿using SimpleBankingSystem.Interfaces;
-using SimpleBankingSystem.Presentation;
-using SimpleBankingSystem.Repositories;
-using SimpleBankingSystem.Service.Account;
-using SimpleBankingSystem.Service.Customer;
+﻿using SimpleBankingSystem.Presentation;
 using SimpleBankingSystem.Utilities;
+using SimpleBankingSystem.Application.Service.Account;
+using SimpleBankingSystem.Application.Service.Customer;
+using SimpleBankingSystem.Infrastructure.Interfaces;
+using SimpleBankingSystem.Domain.Entities;
+using SimpleBankingSystem.Infrastructure.Repositories;
 using SimpleBankingSystem.Domain;
 
 namespace SimpleBankingSystem
@@ -12,16 +13,27 @@ namespace SimpleBankingSystem
     {
         public static void Main(string[] args)
         {
-            ICustomerRepository customerRepository = new CustomerRepository();
-            IAccountRepository accountRepository = new AccountRepository();
-            IGenerateAccountNumber generateAccount = new GuidAccountNumber();
-            ITransactionRepository transactionRepository = new TransactionRepository();
+            var connection = new FileConnection();
+            var (customerPath, accountPath, transactionPath) = connection.ConnectionString();
 
-            AccountOpeningService accountOpeningService = new AccountOpeningService(generateAccount, accountRepository);
-            AccountOperationService accountOperationService = new AccountOperationService(accountRepository, transactionRepository);
-            AccountQueryService accountQueryService = new AccountQueryService(accountRepository, transactionRepository);
-            AccountStatusService accountStatusService = new AccountStatusService(accountRepository);
-            CustomerProfileService customerProfileService = new CustomerProfileService(customerRepository);
+            string customerFile = customerPath;
+            string accountFile = accountPath;
+            string transactionFile = transactionPath;
+
+            ICustomerRepository customerRepository = new CustomerFileRepository(customerFile);
+            IAccountRepository accountRepository = new AccountFileRepository(accountFile);
+            ITransactionRepository transactionRepository = new TransactionFileRepository(transactionFile);
+            IGenerateAccountNumber generateAccount = new GuidAccountNumber();
+
+            customerRepository.Load();
+            accountRepository.Load();
+            transactionRepository.Load();
+
+            AccountOpeningService accountOpeningService = new (accountRepository, generateAccount);
+            AccountOperationService accountOperationService = new (accountRepository, transactionRepository);
+            AccountQueryService accountQueryService = new (accountRepository, transactionRepository);
+            AccountStatusService accountStatusService = new (accountRepository);
+            CustomerProfileService customerProfileService = new (customerRepository);
 
             bool startApplication = true;
             do
@@ -51,7 +63,8 @@ namespace SimpleBankingSystem
                                     customerRepository.Add(newCustomer);
                                     string accountNumber = accountOpeningService.OpenSavingsAccount(newCustomer.CustomerId);
                                     newCustomer.LinkAccountNumber(accountNumber);
-                                    Console.WriteLine($"Congratulations... your account number is {accountNumber}");
+                                    customerRepository.Save();
+                                    Console.WriteLine($"Congratulations... your savings account number is {accountNumber}");
                                 }
                                 catch (Exception ex)
                                 {
@@ -65,6 +78,7 @@ namespace SimpleBankingSystem
                                     customerRepository.Add(newCustomer);
                                     string accountNumber = accountOpeningService.OpenCurrentAccount(newCustomer.CustomerId);
                                     newCustomer.LinkAccountNumber(accountNumber);
+                                    customerRepository.Save();
                                     Console.WriteLine($"Congratulations... your current account is {accountNumber}");
                                 }
                                 catch (Exception ex)
@@ -89,9 +103,11 @@ namespace SimpleBankingSystem
                                 try
                                 {
                                     string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
-                                    Account existingCurrentaccount = accountRepository.GetByNumber(existingAccountNumber);
+                                    Account existingCurrentaccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
                                     string newSavingsAccountNumber = accountOpeningService.OpenSavingsAccount(existingCurrentaccount.CustomerID);
-                                    Console.WriteLine($"Congratulations... your savings account is {newSavingsAccountNumber}");
+                                    Customer customer = customerRepository.GetCustomerById(existingCurrentaccount.CustomerID);
+                                    customer.LinkAccountNumber(newSavingsAccountNumber);
+                                    Console.WriteLine($"Congratulations... your savings account number is {newSavingsAccountNumber}");
                                 }
                                 catch (Exception ex)
                                 {
@@ -103,9 +119,11 @@ namespace SimpleBankingSystem
                                 try
                                 {
                                     string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
-                                    Account? existingSavingsaccount = accountRepository.GetByNumber(existingAccountNumber);
+                                    Account existingSavingsaccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
                                     string newCurrentAccountNumber = accountOpeningService.OpenCurrentAccount(existingSavingsaccount.CustomerID);
-                                    Console.WriteLine($"Congratulations... your current account is {newCurrentAccountNumber}");
+                                    Customer customer = customerRepository.GetCustomerById(existingSavingsaccount.CustomerID);
+                                    customer.LinkAccountNumber(newCurrentAccountNumber);
+                                    Console.WriteLine($"Congratulations... your current account number is {newCurrentAccountNumber}");
                                 }
                                 catch (Exception ex)
                                 {
@@ -124,7 +142,7 @@ namespace SimpleBankingSystem
                         try
                         {
                             string depositAccountNumber = UserInputOutput.GetAccountString("Kindly enter account number: ");
-                            decimal depositAmount = UserInputOutput.GetDecimalInput("Kindly enter deposit amount: ");
+                            decimal depositAmount = UserInputOutput.GetDecimalInput("Kindly enter amount to be deposited: ");
                             accountOperationService.Deposit(depositAccountNumber, depositAmount);
                             Console.WriteLine($"{depositAmount} Deposit transaction successsful");
                         }
@@ -139,7 +157,7 @@ namespace SimpleBankingSystem
                         try
                         {
                             string withdrawalAccountNumber = UserInputOutput.GetAccountString("Kindly enter account number: ");
-                            decimal withdrawalAmount = UserInputOutput.GetDecimalInput("Kindly enter deposit amount: ");
+                            decimal withdrawalAmount = UserInputOutput.GetDecimalInput("Kindly enter amount to be withdrawn: ");
                             accountOperationService.Withdraw(withdrawalAccountNumber, withdrawalAmount);
                             Console.WriteLine($"{withdrawalAmount} Withdrawal transaction successsful");
                         }
@@ -179,7 +197,7 @@ namespace SimpleBankingSystem
                             Console.WriteLine("*******************************************************************");
                             foreach (Transaction transaction in transactions)
                             {
-                                Console.WriteLine($"{transaction.TransactionDate} - {transaction.TransactionID} | {transaction.TransactionType} | {transaction.Amount}");
+                                Console.WriteLine(transaction.ToString());
                             }
                         }
                         catch (Exception ex)
@@ -199,7 +217,7 @@ namespace SimpleBankingSystem
                                 {
                                     string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
                                     string newLastname = UserInputOutput.GetUserInputString("Kindly enter your Lastname: ");
-                                    Account customersAccount = accountRepository.GetByNumber(existingAccountNumber);
+                                    Account customersAccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
                                     customerProfileService.UpdateLastName(customersAccount.CustomerID, newLastname);
                                     Console.WriteLine($"Lastname Updated Successfully");
                                 }
@@ -215,7 +233,7 @@ namespace SimpleBankingSystem
                                 {
                                     string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
                                     string newEmailAddress = UserInputOutput.GetUserEmailString("Kindly enter your new email address: ");
-                                    Account? customersAccount = accountRepository.GetByNumber(existingAccountNumber);
+                                    Account customersAccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
 
                                     customerProfileService.UpdateEmailAddress(customersAccount.CustomerID, newEmailAddress);
                                     Console.WriteLine($"Email address Updated Successfully");
