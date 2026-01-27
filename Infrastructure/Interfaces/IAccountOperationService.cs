@@ -1,8 +1,10 @@
-﻿namespace SimpleBankingSystem.Infrastructure.Interfaces
+﻿using SimpleBankingSystem.Domain.ErrorHandler;
+
+namespace SimpleBankingSystem.Infrastructure.Interfaces
 {
     internal interface IAccountOperationService
     {
-        void Deposit(string accountNumber, decimal amount);
-        void Withdraw(string accountNumber, decimal amount);
+        Result Deposit(string accountNumber, decimal amount);
+        Result Withdraw(string accountNumber, decimal amount);
     }
 }

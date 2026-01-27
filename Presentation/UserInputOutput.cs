@@ -168,5 +168,10 @@ namespace SimpleBankingSystem.Presentation
             return value;
         }
 
+        public static void ShowMessage(string message)
+        {
+            Console.WriteLine(message);
+        }
+
     }
 }

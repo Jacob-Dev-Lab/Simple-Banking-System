@@ -1,8 +1,10 @@
-﻿namespace SimpleBankingSystem.Infrastructure.Interfaces
+﻿using SimpleBankingSystem.Domain.ErrorHandler;
+
+namespace SimpleBankingSystem.Infrastructure.Interfaces
 {
     internal interface IAccountStatusService
     {
-        void ActivateAccount(string accountNumber);
-        void DeActivateAccount(string accountNumber);
+        Result ActivateAccount(string accountNumber);
+        Result DeActivateAccount(string accountNumber);
     }
 }

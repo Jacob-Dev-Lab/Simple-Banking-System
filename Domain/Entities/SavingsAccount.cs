@@ -1,4 +1,6 @@
+using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.Enums;
+using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Domain
 {
@@ -6,18 +8,24 @@ namespace SimpleBankingSystem.Domain
     {
         private static readonly decimal _minimumBalance = 50m;
 
-        public override void Withdraw(decimal amount)
+        public override Result Withdraw(decimal amount)
         {
-            EnsureAccountIsActive();
-            ValidateAmount(amount);
+            var activeCheck = EnsureAccountIsActive();
+            if (activeCheck.IsFailure)
+                return activeCheck;
+
+            var amountCheck = ValidateAmount(amount);
+            if (amountCheck.IsFailure)
+                return amountCheck;
 
             if (amount > Balance)
-                throw new InvalidOperationException("Insufficient Balance");
+                return Result.Failure("Insufficient Funds.");
 
             if (Balance - amount < _minimumBalance)
-                throw new InvalidOperationException("Violates Minimum Balance");
+                return Result.Failure("Violates minimum balance."); ;
 
             Balance -= amount;
+            return Result.Success();
         }
     }
 }

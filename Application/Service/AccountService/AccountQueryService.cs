@@ -1,8 +1,9 @@
 ﻿using SimpleBankingSystem.Domain.Entities;
+using SimpleBankingSystem.Domain.ErrorHandler;
 using SimpleBankingSystem.Infrastructure.Interfaces;
 using SimpleBankingSystem.Infrastructure.Repositories;
 
-namespace SimpleBankingSystem.Application.Service.Account
+namespace SimpleBankingSystem.Application.Service.AccountService
 {
     internal class AccountQueryService(IAccountRepository accountRepository, 
         ITransactionRepository transactionRepository) : IAccountQueryService

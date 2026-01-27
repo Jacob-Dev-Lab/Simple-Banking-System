@@ -13,7 +13,7 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
         public void Add(Customer customer)
         {
             if (customer == null)
-                throw new ArgumentNullException("Invalid customer");
+                throw new ArgumentNullException("Invalid customer", nameof(customer));
 
             var existingCustomer = _customers.FirstOrDefault
                 (c =>

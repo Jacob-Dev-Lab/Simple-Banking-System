@@ -1,9 +1,10 @@
 ﻿using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.Enums;
+using SimpleBankingSystem.Domain.ErrorHandler;
 using SimpleBankingSystem.Infrastructure.Interfaces;
 using SimpleBankingSystem.Infrastructure.Repositories;
 
-namespace SimpleBankingSystem.Application.Service.Account
+namespace SimpleBankingSystem.Application.Service.AccountService
 {
     internal class AccountOperationService(IAccountRepository accountRepository, 
         ITransactionRepository transactionRepository) : IAccountOperationService
@@ -11,10 +12,13 @@ namespace SimpleBankingSystem.Application.Service.Account
         private readonly IAccountRepository _accountRepository = accountRepository;
         private readonly ITransactionRepository _transactionRepository = transactionRepository;
 
-        public void Deposit(string accountNumber, decimal amount)
+        public Result Deposit(string accountNumber, decimal amount)
         {
             var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
-            account.Deposit(amount);
+            
+            var ruleCheck = account.Deposit(amount);
+            if (ruleCheck.IsFailure)
+                return ruleCheck;
 
             Transaction transaction = new(accountNumber, amount, TransactionType.Deposit);
             _transactionRepository.Add(transaction);
@@ -22,12 +26,17 @@ namespace SimpleBankingSystem.Application.Service.Account
             account.LinkTransaction(transaction.TransactionID);
 
             _accountRepository.Save();
+
+            return Result.Success();
         }
 
-        public void Withdraw(string accountNumber, decimal amount)
+        public Result Withdraw(string accountNumber, decimal amount)
         {
             var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
-            account.Withdraw(amount);
+            
+            var ruleCheck = account.Withdraw(amount);
+            if (ruleCheck.IsFailure)
+                return ruleCheck;
 
             Transaction transaction = new(accountNumber, amount, TransactionType.Withdrawal);
             _transactionRepository.Add(transaction);
@@ -35,6 +44,8 @@ namespace SimpleBankingSystem.Application.Service.Account
             account.LinkTransaction(transaction.TransactionID);
 
             _accountRepository.Save();
+
+            return Result.Success();
         }
     }
 }

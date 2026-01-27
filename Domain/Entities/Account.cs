@@ -1,60 +1,95 @@
 using SimpleBankingSystem.Domain.Enums;
+using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Domain
 {
-    abstract class Account(Guid customerID, string accountNumber, AccountType accountType)
+    abstract class Account
     {
-        public Guid CustomerID { get; } = customerID;
-        public string AccountNumber { get; } = accountNumber;
-        public AccountType AccountType { get; } = accountType;
-        public decimal Balance { get; protected set; } = 0m;
-        public DateOnly DateCreated { get; } = DateOnly.FromDateTime(DateTime.Now);
-        public bool IsDeactivated { get; protected set; } = false;
+        protected Account(Guid customerID, string accountNumber, AccountType accountType)
+        {
+            if (customerID.Equals(Guid.Empty))
+                throw new ArgumentException("Customer ID cannot be empty.", nameof(customerID));
+
+            if (string.IsNullOrWhiteSpace(accountNumber))
+                throw new ArgumentException("Account number is required.", nameof(accountNumber));
+
+            if (!Enum.IsDefined(accountType))
+                throw new ArgumentOutOfRangeException(nameof(accountType));
+
+            CustomerID = customerID;
+            AccountNumber = accountNumber;
+            AccountType = accountType;
+
+            Balance = 0m;
+            DateCreated = DateOnly.FromDateTime(DateTime.Now);
+            IsActive = true;
+        }
+
+        public Guid CustomerID { get; }
+        public string AccountNumber { get; }
+        public AccountType AccountType { get; }
+        public decimal Balance { get; protected set; }
+        public DateOnly DateCreated { get; }
+        public bool IsActive { get; protected set; }
 
         private readonly List<Guid> _transactionsID = [];
         public IReadOnlyCollection<Guid> TransactionsID => _transactionsID.AsReadOnly();
 
         public void LinkTransaction(Guid transactionID)
         {
-            if (transactionID == Guid.Empty)
-                throw new ArgumentNullException("Invalid transaction id");
+            if (transactionID.Equals(Guid.Empty))
+                throw new ArgumentException("Transaction ID cannot be empty.", nameof(transactionID));
 
             _transactionsID.Add(transactionID);
         }
 
-        public virtual void Deposit(decimal amount)
+        public virtual Result Deposit(decimal amount)
         {
-            EnsureAccountIsActive();
-            ValidateAmount(amount);
+            var activeCheck = EnsureAccountIsActive();
+            if (activeCheck.IsFailure)
+                return activeCheck;
+
+            var amountCheck = ValidateAmount(amount);
+            if (amountCheck.IsFailure)
+                return amountCheck;
+
             Balance += amount;
+            return Result.Success();
         }
 
-        public abstract void Withdraw(decimal amount);
+        public abstract Result Withdraw(decimal amount);
 
-        protected void ValidateAmount(decimal amount)
+        protected Result ValidateAmount(decimal amount)
         {
-            if (amount <= 0) throw new ArgumentOutOfRangeException("Amount must be greater than zero (0).");
+            if (amount <= 0)
+                return Result.Failure("Amount must be greater than Zero.");
+
+            return Result.Success();
         }
 
-        public void Activate()
+        public Result Activate()
         {
-            if (!IsDeactivated)
-                return;
+            if (IsActive)
+                return Result.Failure("Account is already activated");
 
-            IsDeactivated = false;
+            IsActive = true;
+            return Result.Success();
         }
-        public void Deactivate()
+        public Result Deactivate()
         {
-            if (IsDeactivated)
-                return;
+            if (!IsActive)
+                return Result.Failure("Account is already deactivated");
 
-            IsDeactivated = true;
+            IsActive = false;
+            return Result.Success();
         }
 
-        protected void EnsureAccountIsActive()
+        protected Result EnsureAccountIsActive()
         {
-            if (IsDeactivated == true)
-                throw new InvalidOperationException("Account is Deactivated");
+            if (!IsActive)
+                return Result.Failure("Transaction canceled: account is deactivated");
+
+            return Result.Success();
         }
     }
 }

@@ -20,9 +20,7 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
 
         public Account GetAccountByAccountNumber(string accountNumber)
         {
-            ValidateAccountNumber(accountNumber);
-
-            return _accounts.FirstOrDefault(a => a.AccountNumber == accountNumber) ??
+           return _accounts.FirstOrDefault(a => a.AccountNumber == accountNumber) ??
                 throw new KeyNotFoundException("Account number does not exist/invalid");
         }
 

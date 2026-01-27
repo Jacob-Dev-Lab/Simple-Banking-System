@@ -1,8 +1,10 @@
-﻿namespace SimpleBankingSystem.Infrastructure.Interfaces
+﻿using SimpleBankingSystem.Domain.ErrorHandler;
+
+namespace SimpleBankingSystem.Infrastructure.Interfaces
 {
     internal interface ICustomerProfileService
     {
-        void UpdateLastName(Guid customerID, string lastname);
-        void UpdateEmailAddress(Guid customerID, string emailAddress);
+        Result UpdateLastName(Guid customerID, string lastname);
+        Result UpdateEmailAddress(Guid customerID, string emailAddress);
     }
 }
