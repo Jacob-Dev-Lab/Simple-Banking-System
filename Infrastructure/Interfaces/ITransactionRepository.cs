@@ -2,7 +2,7 @@
 
 namespace SimpleBankingSystem.Infrastructure.Interfaces
 {
-    internal interface ITransactionRepository
+    public interface ITransactionRepository
     {
         void Add(Transaction transaction);
         IReadOnlyCollection<Transaction> GetTransactionByAccountNumber(string accountNumber);

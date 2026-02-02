@@ -4,7 +4,7 @@ using SimpleBankingSystem.Infrastructure.Interfaces;
 
 namespace SimpleBankingSystem.Infrastructure.Repositories
 {
-    class AccountRepository : AccountValidator, IAccountRepository
+    public class AccountRepository : AccountValidator, IAccountRepository
     {
         private static readonly List<Account> _accounts = [];
         public void Add(Account account)

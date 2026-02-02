@@ -1,4 +1,5 @@
-﻿using SimpleBankingSystem.Domain.ErrorHandler;
+﻿using System.Net.Mail;
+using SimpleBankingSystem.Domain.ErrorHandler;
 using SimpleBankingSystem.Infrastructure.Interfaces;
 using SimpleBankingSystem.Presentation;
 

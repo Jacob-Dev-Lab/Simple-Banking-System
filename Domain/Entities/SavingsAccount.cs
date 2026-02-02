@@ -1,10 +1,9 @@
-using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.Enums;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Domain
 {
-    sealed class SavingsAccount(Guid customerID, string accountNumber) : Account(customerID, accountNumber, AccountType.Savings)
+    public sealed class SavingsAccount(Guid customerID, string accountNumber) : Account(customerID, accountNumber, AccountType.Savings)
     {
         private static readonly decimal _minimumBalance = 50m;
 

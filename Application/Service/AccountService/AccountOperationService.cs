@@ -2,11 +2,10 @@
 using SimpleBankingSystem.Domain.Enums;
 using SimpleBankingSystem.Domain.ErrorHandler;
 using SimpleBankingSystem.Infrastructure.Interfaces;
-using SimpleBankingSystem.Infrastructure.Repositories;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {
-    internal class AccountOperationService(IAccountRepository accountRepository, 
+    public class AccountOperationService(IAccountRepository accountRepository, 
         ITransactionRepository transactionRepository) : IAccountOperationService
     {
         private readonly IAccountRepository _accountRepository = accountRepository;

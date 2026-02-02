@@ -4,7 +4,7 @@ using SimpleBankingSystem.Domain.Entities;
 
 namespace SimpleBankingSystem.Infrastructure.Repositories
 {
-    internal class CustomerRepository : AccountValidator, ICustomerRepository
+    public class CustomerRepository : AccountValidator, ICustomerRepository
     {
         private static readonly List<Customer> _customers = [];
         public void Add(Customer customer)
@@ -12,7 +12,7 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
             if (customer == null)
                 throw new ArgumentNullException(nameof(customer));
 
-            Customer? existingCustomer = _customers.FirstOrDefault
+            var existingCustomer = _customers.FirstOrDefault
                 (c => c.DateOfBirth == customer.DateOfBirth && c.Email == customer.Email);
 
             if (existingCustomer != null)

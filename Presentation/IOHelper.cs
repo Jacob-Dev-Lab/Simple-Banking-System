@@ -1,4 +1,5 @@
-﻿using SimpleBankingSystem.Application.Service.AccountService;
+﻿using System.Net.Mail;
+using SimpleBankingSystem.Application.Service.AccountService;
 using SimpleBankingSystem.Application.Service.CustomerService;
 using SimpleBankingSystem.Domain;
 using SimpleBankingSystem.Domain.Entities;
@@ -14,7 +15,7 @@ namespace SimpleBankingSystem.Presentation
             string lastName = UserInputOutput.GetUserInputString("Kindly enter Lastname: ");
             string otherNames = UserInputOutput.GetUserInputString("Kindly enter other names: ");
             DateOnly dateOfBirth = UserInputOutput.GetUserDateOfBirth("Kindly enter date of birth (YYYY-MM-DD): ");
-            string email = UserInputOutput.GetUserInputString("Kindly enter email address (example@gmail.com): ");
+            string email = UserInputOutput.GetUserEmailString("Kindly enter email address (example@gmail.com): ");
 
             return (lastName, otherNames, dateOfBirth, email);
         }

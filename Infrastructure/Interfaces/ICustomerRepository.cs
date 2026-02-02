@@ -2,7 +2,7 @@
 
 namespace SimpleBankingSystem.Infrastructure.Interfaces
 {
-    internal interface ICustomerRepository
+    public interface ICustomerRepository
     {
         void Add(Customer customer);
         Customer GetCustomerById(Guid customerID);

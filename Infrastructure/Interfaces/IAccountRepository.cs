@@ -2,7 +2,7 @@
 
 namespace SimpleBankingSystem.Infrastructure.Interfaces
 {
-    internal interface IAccountRepository
+    public interface IAccountRepository
     {
         void Add(Account account);
         Account GetAccountByAccountNumber(string accountNumber);

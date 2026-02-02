@@ -6,7 +6,7 @@ using SimpleBankingSystem.Infrastructure.Interfaces;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {
-    internal class AccountOpeningService(IAccountRepository accountRepository, 
+    public class AccountOpeningService(IAccountRepository accountRepository, 
         ICustomerRepository customerRepository,
         IGenerateAccountNumber generateAccountNumber) : IAccountOpeningService
     {

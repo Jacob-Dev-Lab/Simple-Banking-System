@@ -3,7 +3,7 @@ using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Domain
 {
-    abstract class Account
+    public abstract class Account
     {
         protected Account(Guid customerID, string accountNumber, AccountType accountType)
         {
@@ -70,7 +70,7 @@ namespace SimpleBankingSystem.Domain
         public Result Activate()
         {
             if (IsActive)
-                return Result.Failure("Account is already activated");
+                return Result.Failure("Account is already activated.");
 
             IsActive = true;
             return Result.Success();
@@ -78,7 +78,7 @@ namespace SimpleBankingSystem.Domain
         public Result Deactivate()
         {
             if (!IsActive)
-                return Result.Failure("Account is already deactivated");
+                return Result.Failure("Account is already deactivated.");
 
             IsActive = false;
             return Result.Success();
@@ -87,7 +87,7 @@ namespace SimpleBankingSystem.Domain
         protected Result EnsureAccountIsActive()
         {
             if (!IsActive)
-                return Result.Failure("Transaction canceled: account is deactivated");
+                return Result.Failure("Transaction canceled: account is deactivated.");
 
             return Result.Success();
         }

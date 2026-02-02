@@ -2,7 +2,7 @@ using SimpleBankingSystem.Infrastructure.Interfaces;
 
 namespace SimpleBankingSystem.Utilities
 {
-    class GuidAccountNumber : IGenerateAccountNumber
+    public class GuidAccountNumber : IGenerateAccountNumber
     {
         public string Generate()
         {

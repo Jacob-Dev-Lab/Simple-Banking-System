@@ -1,6 +1,6 @@
 ﻿namespace SimpleBankingSystem.Domain.Enums
 {
-    enum AccountType
+    public enum AccountType
     {
         Savings,
         Current

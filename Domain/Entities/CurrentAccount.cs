@@ -3,7 +3,7 @@ using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Domain
 {
-    sealed class CurrentAccount(Guid customerID, string accountNumber) : Account(customerID, accountNumber, AccountType.Current)
+    public sealed class CurrentAccount(Guid customerID, string accountNumber) : Account(customerID, accountNumber, AccountType.Current)
     {
         public override Result Withdraw(decimal amount)
         {

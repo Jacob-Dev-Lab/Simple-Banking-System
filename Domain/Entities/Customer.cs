@@ -1,11 +1,14 @@
 using System.ComponentModel.DataAnnotations;
+using System.Net;
+using System.Net.Mail;
 using SimpleBankingSystem.Domain.ErrorHandler;
+using SimpleBankingSystem.Utilities;
 
 namespace SimpleBankingSystem.Domain.Entities
 {
     public sealed class Customer
     {
-        public  Customer(string lastName, string otherNames, DateOnly dateOfBirth, string email)
+        public Customer(string lastName, string otherNames, DateOnly dateOfBirth, string email)
         {
             if (string.IsNullOrWhiteSpace(lastName))
                 throw new ArgumentException("Last name required", nameof(lastName));
@@ -13,11 +16,16 @@ namespace SimpleBankingSystem.Domain.Entities
             if (string.IsNullOrWhiteSpace(otherNames))
                 throw new ArgumentException("Othernames required", nameof(otherNames));
 
-            if (dateOfBirth.Equals(new DateOnly()))
-                throw new ArgumentException("Date of birth required", nameof(dateOfBirth));
+            if (dateOfBirth == default)
+                throw new ArgumentException("Date of birth is required", nameof(dateOfBirth));
+
+            if (dateOfBirth > DateOnly.FromDateTime(DateTime.UtcNow))
+                throw new ArgumentException("Date of birth cannot be in the future", nameof(dateOfBirth));
 
             if (string.IsNullOrWhiteSpace(email))
-                throw new ArgumentException("Email address required", nameof(email));
+                throw new ArgumentException("Valid email required", nameof(email));
+
+            EmailValidator.Validate(email);
 
             CustomerId = Guid.NewGuid();
             LastName = lastName;
@@ -36,8 +44,8 @@ namespace SimpleBankingSystem.Domain.Entities
 
         public void LinkAccountNumber(string accountNumber)
         {
-            if (accountNumber == null)
-                throw new ArgumentNullException("Unable to link account, try again.");
+            if (string.IsNullOrEmpty(accountNumber) || string.IsNullOrWhiteSpace(accountNumber))
+                throw new ArgumentException("Unable to link account, try again.");
 
             _accountNumbers.Add(accountNumber);
         }
@@ -52,7 +60,7 @@ namespace SimpleBankingSystem.Domain.Entities
         }
         public Result ChangeEmailAddress(string newEmailAddress)
         {
-            if (string.IsNullOrWhiteSpace(newEmailAddress))
+            if (!new MailAddress(newEmailAddress).Address.Equals(newEmailAddress))
                 return Result.Failure("A valid email address is required.");
 
             Email = newEmailAddress;

@@ -1,9 +1,8 @@
-﻿using System.Transactions;
-using SimpleBankingSystem.Domain.Enums;
+﻿using SimpleBankingSystem.Domain.Enums;
 
 namespace SimpleBankingSystem.Domain.Entities
 {
-    internal class Transaction(string accountNumber, decimal amount, TransactionType transactionType)
+    public class Transaction(string accountNumber, decimal amount, TransactionType transactionType)
     {
         public Guid TransactionID { get; } = Guid.NewGuid();
         public string AccountNumber { get; } = accountNumber;

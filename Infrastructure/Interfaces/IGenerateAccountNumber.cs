@@ -1,6 +1,6 @@
 namespace SimpleBankingSystem.Infrastructure.Interfaces
 {
-    interface IGenerateAccountNumber
+    public interface IGenerateAccountNumber
     {
         string Generate();
     }

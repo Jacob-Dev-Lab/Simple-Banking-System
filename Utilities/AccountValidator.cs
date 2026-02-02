@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleBankingSystem.Utilities
 {
-    abstract class AccountValidator
+    public abstract class AccountValidator
     {
         protected virtual void ValidateAccountNumber(string accountNumber)
         {

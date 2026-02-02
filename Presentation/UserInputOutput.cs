@@ -38,21 +38,20 @@ namespace SimpleBankingSystem.Presentation
 
         public static string GetUserEmailString(string prompt)
         {
-            string email;
+            MailAddress email;
             bool valid;
             Console.Write(prompt);
 
             do
             {
-                email = Console.ReadLine() ?? string.Empty;
-                valid = !string.IsNullOrWhiteSpace(email) && new MailAddress(email).Address == email;
+                valid = MailAddress.TryCreate(Console.ReadLine(), out email);
 
                 if (!valid)
-                    Console.WriteLine("Invalid Entry, try again (example@gmail.com): ");
+                    Console.Write("Invalid Entry, try again (example@gmail.com): ");
             }
             while (!valid);
 
-            return email;
+            return email.Address;
         }
 
         public static int GetMenuOptionSelection(string prompt, int min, int max)

@@ -2,7 +2,7 @@
 
 namespace SimpleBankingSystem.Infrastructure.Interfaces
 {
-    internal interface IAccountOperationService
+    public interface IAccountOperationService
     {
         Result Deposit(string accountNumber, decimal amount);
         Result Withdraw(string accountNumber, decimal amount);
