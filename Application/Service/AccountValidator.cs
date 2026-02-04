@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimpleBankingSystem.Utilities
+namespace SimpleBankingSystem.Application.Service
 {
     public abstract class AccountValidator
     {

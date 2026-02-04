@@ -1,7 +1,7 @@
-﻿using SimpleBankingSystem.Application.Service.AccountService;
+﻿using SimpleBankingSystem.Application.Interfaces;
+using SimpleBankingSystem.Application.Service.AccountService;
 using SimpleBankingSystem.Application.Service.CustomerService;
 using SimpleBankingSystem.Domain.Entities;
-using SimpleBankingSystem.Infrastructure.Interfaces;
 using SimpleBankingSystem.Infrastructure.Repositories;
 using SimpleBankingSystem.Presentation;
 using SimpleBankingSystem.Utilities;
@@ -13,15 +13,17 @@ namespace SimpleBankingSystem
         public static void Main(string[] args)
         {
             var connection = new FileConnection();
-            var (customerPath, accountPath, transactionPath) = connection.ConnectionString();
+            var (customerPath, accountPath, transactionPath, logPath) = connection.ConnectionString();
 
             string customerFile = customerPath;
             string accountFile = accountPath;
             string transactionFile = transactionPath;
+            string LogFile = logPath;
 
-            ICustomerRepository customerRepository = new CustomerFileRepository(customerFile);
-            IAccountRepository accountRepository = new AccountFileRepository(accountFile);
-            ITransactionRepository transactionRepository = new TransactionFileRepository(transactionFile);
+            ILogger logger = new Logger(logPath);
+            ICustomerRepository customerRepository = new FileCustomerRepository(customerFile, logger);
+            IAccountRepository accountRepository = new FileAccountRepository(accountFile, logger);
+            ITransactionRepository transactionRepository = new FileTransactionRepository(transactionFile, logger);
             IGenerateAccountNumber generateAccount = new GuidAccountNumber();
 
             customerRepository.Load();

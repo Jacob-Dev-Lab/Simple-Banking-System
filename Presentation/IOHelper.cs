@@ -1,10 +1,11 @@
 ﻿using System.Net.Mail;
+using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Application.Service.AccountService;
 using SimpleBankingSystem.Application.Service.CustomerService;
 using SimpleBankingSystem.Domain;
 using SimpleBankingSystem.Domain.Entities;
-using SimpleBankingSystem.Infrastructure.Interfaces;
 using SimpleBankingSystem.Infrastructure.Repositories;
+using SimpleBankingSystem.Utilities;
 
 namespace SimpleBankingSystem.Presentation
 {
@@ -34,7 +35,7 @@ namespace SimpleBankingSystem.Presentation
                     }
                     catch (Exception ex)
                     {
-                        UserInputOutput.ShowMessage("System error: " + ex.Message);
+                        UserInputOutput.ShowMessage("Error: " + ex.Message);
                     }
                     break;
 
@@ -46,7 +47,7 @@ namespace SimpleBankingSystem.Presentation
                     }
                     catch (Exception ex)
                     {
-                        UserInputOutput.ShowMessage("System error: " + ex.Message);
+                        UserInputOutput.ShowMessage("Error: " + ex.Message);
                     }
                     break;
 
@@ -82,7 +83,7 @@ namespace SimpleBankingSystem.Presentation
                     }
                     catch (Exception ex)
                     {
-                        UserInputOutput.ShowMessage("System error: " + ex.Message);
+                        UserInputOutput.ShowMessage("Error: " + ex.Message);
                     }
                     break;
 
@@ -104,7 +105,7 @@ namespace SimpleBankingSystem.Presentation
                     }
                     catch (Exception ex)
                     {
-                        UserInputOutput.ShowMessage("System error: " + ex.Message);
+                        UserInputOutput.ShowMessage("Error: " + ex.Message);
                     }
                     break;
 
@@ -129,7 +130,7 @@ namespace SimpleBankingSystem.Presentation
             }
             catch (Exception ex)
             {
-                UserInputOutput.ShowMessage("System error" + ex.Message);
+                UserInputOutput.ShowMessage("£rror: " + ex.Message);
             }
         }
 
@@ -148,7 +149,7 @@ namespace SimpleBankingSystem.Presentation
             }
             catch (Exception ex)
             {
-                UserInputOutput.ShowMessage("System error" + ex.Message);
+                UserInputOutput.ShowMessage("Error: " + ex.Message);
             }
         }
 
@@ -162,7 +163,7 @@ namespace SimpleBankingSystem.Presentation
             }
             catch (Exception ex)
             {
-                UserInputOutput.ShowMessage("System error" + ex.Message);
+                UserInputOutput.ShowMessage("Error: " + ex.Message);
             }
         }
 
@@ -187,7 +188,7 @@ namespace SimpleBankingSystem.Presentation
             }
             catch (Exception ex)
             {
-                UserInputOutput.ShowMessage(ex.Message);
+                UserInputOutput.ShowMessage("Error: Failed to load account statement");
             }
         }
 
@@ -213,7 +214,7 @@ namespace SimpleBankingSystem.Presentation
                     }
                     catch (Exception ex)
                     {
-                        UserInputOutput.ShowMessage("System error" + ex.Message);
+                        UserInputOutput.ShowMessage("Error: Failed to update last name");
                     }
 
                     break;
@@ -234,7 +235,7 @@ namespace SimpleBankingSystem.Presentation
                     }
                     catch (Exception ex)
                     {
-                        UserInputOutput.ShowMessage("System error" + ex.Message);
+                        UserInputOutput.ShowMessage("Error: Failed to update email address");
                     }
 
                     break;
@@ -264,7 +265,7 @@ namespace SimpleBankingSystem.Presentation
                     }
                     catch (Exception ex)
                     {
-                        UserInputOutput.ShowMessage("System error" + ex.Message);
+                        UserInputOutput.ShowMessage("Error: Failed to activate account");
                     }
 
                     break;
@@ -282,7 +283,7 @@ namespace SimpleBankingSystem.Presentation
                     }
                     catch (Exception ex)
                     {
-                        UserInputOutput.ShowMessage("System error" + ex.Message);
+                        UserInputOutput.ShowMessage("Error: Failed to deactivate account");
                     }
 
                     break;

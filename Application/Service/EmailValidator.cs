@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace SimpleBankingSystem.Utilities
+namespace SimpleBankingSystem.Application.Service
 {
     public static class EmailValidator
     {

@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace SimpleBankingSystem.Infrastructure.Interfaces
+namespace SimpleBankingSystem.Application.Interfaces
 {
     internal interface ICustomerProfileService
     {

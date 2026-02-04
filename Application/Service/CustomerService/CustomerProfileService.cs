@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
+using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.ErrorHandler;
-using SimpleBankingSystem.Infrastructure.Interfaces;
 using SimpleBankingSystem.Presentation;
 
 namespace SimpleBankingSystem.Application.Service.CustomerService

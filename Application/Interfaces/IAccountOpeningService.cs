@@ -1,7 +1,7 @@
 ﻿using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace SimpleBankingSystem.Infrastructure.Interfaces
+namespace SimpleBankingSystem.Application.Interfaces
 {
     public interface IAccountOpeningService
     {

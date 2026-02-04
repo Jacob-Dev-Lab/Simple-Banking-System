@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Net.Mail;
+using SimpleBankingSystem.Application.Service;
 using SimpleBankingSystem.Domain.ErrorHandler;
-using SimpleBankingSystem.Utilities;
 
 namespace SimpleBankingSystem.Domain.Entities
 {

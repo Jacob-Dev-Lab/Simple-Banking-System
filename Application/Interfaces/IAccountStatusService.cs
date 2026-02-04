@@ -1,6 +1,6 @@
 ﻿using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace SimpleBankingSystem.Infrastructure.Interfaces
+namespace SimpleBankingSystem.Application.Interfaces
 {
     internal interface IAccountStatusService
     {

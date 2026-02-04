@@ -1,6 +1,6 @@
 ﻿using SimpleBankingSystem.Domain;
 
-namespace SimpleBankingSystem.Infrastructure.Interfaces
+namespace SimpleBankingSystem.Application.Interfaces
 {
     public interface IAccountRepository
     {

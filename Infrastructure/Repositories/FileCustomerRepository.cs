@@ -1,12 +1,13 @@
 ﻿using System.Text.Json;
+using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.Entities;
-using SimpleBankingSystem.Infrastructure.Interfaces;
 
 namespace SimpleBankingSystem.Infrastructure.Repositories
 {
-    internal class CustomerFileRepository(string filePath) : ICustomerRepository
+    internal class FileCustomerRepository(string filePath, ILogger logger) : ICustomerRepository
     {
         private readonly string _filePath = filePath;
+        private readonly ILogger _logger = logger;
         private readonly List<Customer> _customers = [];
         private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
 
@@ -38,21 +39,37 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
 
         public void Save()
         {
-            var serializedustomerData = JsonSerializer.Serialize(_customers, _jsonOptions);
-            File.WriteAllText(_filePath, serializedustomerData);
+            try
+            {
+                var serializedustomerData = JsonSerializer.Serialize(_customers, _jsonOptions);
+                File.WriteAllText(_filePath, serializedustomerData);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInfo($"Error saving customer data: {ex.Message}");
+                throw;
+            }
         }
 
         public List<Customer> Load()
         {
-            if (!File.Exists(_filePath))
-                File.WriteAllText(_filePath, "[]");
+            try
+            {
+                if (!File.Exists(_filePath))
+                    File.WriteAllText(_filePath, "[]");
 
-            var jsonData = File.ReadAllText(_filePath);
-            var deserialisedData = JsonSerializer.Deserialize<List<Customer>>(jsonData) ?? [];
+                var jsonData = File.ReadAllText(_filePath);
+                var deserialisedData = JsonSerializer.Deserialize<List<Customer>>(jsonData) ?? [];
 
-            _customers.Clear();
-            _customers.AddRange(deserialisedData);
-            return _customers;
+                _customers.Clear();
+                _customers.AddRange(deserialisedData);
+                return _customers;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInfo($"Error loading customer data: {ex.Message}");
+                throw;
+            }
         }
     }
 }

@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
+using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.Entities;
-using SimpleBankingSystem.Infrastructure.Interfaces;
 
 namespace SimpleBankingSystem.Infrastructure.Repositories
 {
-    internal class TransactionFileRepository : ITransactionRepository
+    internal class FileTransactionRepository(string filePath, ILogger logger) : ITransactionRepository
     {
-        private readonly string _filePath;
+        private readonly string _filePath = filePath;
+        private readonly ILogger _logger = logger;
         private readonly List<Transaction> _transactions = [];
         private readonly JsonSerializerOptions _jsonOption = new() { WriteIndented = true};
-
-        public TransactionFileRepository(string filePath)
-        {
-            _filePath = filePath;
-        }
 
         public void Add(Transaction transaction)
         {
@@ -46,22 +37,38 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
 
         public void Save()
         {
-            var jsonData = JsonSerializer.Serialize(_transactions, _jsonOption);
-            File.WriteAllText(_filePath, jsonData);
+            try
+            {
+                var jsonData = JsonSerializer.Serialize(_transactions, _jsonOption);
+                File.WriteAllText(_filePath, jsonData);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInfo($"Error saving transaction data: {ex.Message}");
+                throw;
+            }
         }
 
         public List<Transaction> Load()
         {
-            if (!File.Exists(_filePath))
-                File.WriteAllText(_filePath, "[]");
+            try
+            {
+                if (!File.Exists(_filePath))
+                    File.WriteAllText(_filePath, "[]");
 
-            var jsonData = File.ReadAllText(_filePath);
-            var deserialisedData = JsonSerializer.Deserialize<List<Transaction>>(jsonData) ?? [];
+                var jsonData = File.ReadAllText(_filePath);
+                var deserialisedData = JsonSerializer.Deserialize<List<Transaction>>(jsonData) ?? [];
 
-            _transactions.Clear();
-            _transactions.AddRange(deserialisedData);
+                _transactions.Clear();
+                _transactions.AddRange(deserialisedData);
 
-            return _transactions;
+                return _transactions;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInfo($"Error loading transaction data: {ex.Message}");
+                throw;
+            }
         }
     }
 }

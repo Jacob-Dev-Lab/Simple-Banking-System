@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.ErrorHandler;
-using SimpleBankingSystem.Infrastructure.Interfaces;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {

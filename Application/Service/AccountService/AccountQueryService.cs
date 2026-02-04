@@ -1,6 +1,6 @@
-﻿using SimpleBankingSystem.Domain.Entities;
+﻿using SimpleBankingSystem.Application.Interfaces;
+using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
-using SimpleBankingSystem.Infrastructure.Interfaces;
 using SimpleBankingSystem.Infrastructure.Repositories;
 
 namespace SimpleBankingSystem.Application.Service.AccountService

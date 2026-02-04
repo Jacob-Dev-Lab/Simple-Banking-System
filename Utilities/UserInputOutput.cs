@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace SimpleBankingSystem.Presentation
+namespace SimpleBankingSystem.Utilities
 {
     public static class UserInputOutput
     {
@@ -62,7 +62,7 @@ namespace SimpleBankingSystem.Presentation
 
             do
             {
-                valid = int.TryParse(Console.ReadLine(), out option) && (option >= min && option <= max);
+                valid = int.TryParse(Console.ReadLine(), out option) && option >= min && option <= max;
 
                 if (!valid)
                     Console.WriteLine($"Invalid Option, try again ({min} - {max}): ");
