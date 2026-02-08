@@ -2,6 +2,7 @@
 
 namespace SimpleBankingSystem.Utilities
 {
+    // This class handles all user input and output operations for the banking management system.
     public static class UserInputOutput
     {
         public static string GetUserInputString(string prompt)

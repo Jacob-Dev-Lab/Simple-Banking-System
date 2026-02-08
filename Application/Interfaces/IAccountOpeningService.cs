@@ -5,9 +5,9 @@ namespace SimpleBankingSystem.Application.Interfaces
 {
     public interface IAccountOpeningService
     {
-        Result OpenSavingsAccount(Guid customerID);
-        Result OpenCurrentAccount(Guid customerID);
-        Result OpenSavingsAccount(Customer customer);
-        Result OpenCurrentAccount(Customer customer);
+        Result OpenAdditionalSavingsAccount(string accountNumber);
+        Result OpenAdditionalCurrentAccount(string accountNumber);
+        Result OpenNewSavingsAccount(Customer customer);
+        Result OpenNewCurrentAccount(Customer customer);
     }
 }

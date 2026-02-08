@@ -12,6 +12,11 @@ namespace SimpleBankingSystem.Application.Service.AccountService
     {
         private readonly IAccountRepository _accountRepository = accountRepository;
 
+        /* The ActivateAccount and DeActivateAccount methods first retrieve the account
+         * using the provided account number. They then call the Activate or Deactivate method
+         * on the account, which checks the business rules for the operation. If the operation fails
+         * due to a business rule violation, the method returns the failure result.
+         * If the operation is successful, it saves the changes to the repository and returns a success result.*/
         public Result ActivateAccount(string accountNumber)
         {
             var account = _accountRepository.GetAccountByAccountNumber(accountNumber);

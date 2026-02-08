@@ -5,13 +5,19 @@ using SimpleBankingSystem.Domain.Enums;
 
 namespace SimpleBankingSystem.Infrastructure.Repositories
 {
-    internal class FileAccountRepository(string filePath, ILogger logger) : IAccountRepository
+    internal class FileAccountRepository(IFileConnection connection, ILogger logger) : IAccountRepository
     {
-        private readonly string _filePath = filePath;
+        private readonly string _filePath = connection.AccountFilePath;
         private readonly ILogger _logger = logger;
+
         private readonly List<Account> _accounts = [];
         private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
 
+        /*  The Add method adds a new account to the repository. It checks if the provided 
+         *  account is null and throws an ArgumentNullException if it is. It also checks 
+         *  if the account already exists in the repository and throws an InvalidOperationException 
+         *  if it does. If the account is valid and does not already exist, it adds the 
+         *  account to the list of accounts and saves the updated list to the file. */
         public void Add(Account account)
         {
             if (account == null)
@@ -24,11 +30,18 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
             Save();
         }
 
+        /*  The GetAccountByAccountId method retrieves a collection of accounts associated with a 
+         *  specific customer ID. It filters the list of accounts based on the provided 
+         *  customer GUID and returns the matching accounts as a read-only collection. */
         public IReadOnlyCollection<Account> GetAccountByAccountId(Guid customerGuid)
         {
             return _accounts.FindAll(a => a.CustomerID == customerGuid);
         }
 
+        /*  The GetAccountByAccountNumber method retrieves an account based on the provided 
+         *  account number. It searches through the list of accounts and returns the matching 
+         *  account if found. If no account is found with the specified account number, it 
+         *  throws a KeyNotFoundException to indicate that the account does not exist. */
         public Account GetAccountByAccountNumber(string accountNumber)
         {
             return _accounts.FirstOrDefault
@@ -37,6 +50,9 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
                     ("Account does not exist");
         }
 
+        /*  The Save method serializes the list of accounts into JSON format and writes it 
+         *  to a file. It handles any exceptions that may occur during the saving process 
+         *  by logging the error and rethrowing the exception. */
         public void Save()
         {
             try
@@ -51,6 +67,10 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
             }
         }
 
+        /*  The Load method reads account data from a JSON file, deserializes it 
+         *  into Account objects, and returns a list of accounts. It handles cases where 
+         *  the file does not exist by creating an empty file and ensures that any errors 
+         *  during loading are logged and propagated appropriately. */
         public List<Account> Load()
         {
             try

@@ -1,16 +1,13 @@
-﻿using System.Net.Mail;
-using SimpleBankingSystem.Application.Interfaces;
+﻿using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Application.Service.AccountService;
-using SimpleBankingSystem.Application.Service.CustomerService;
-using SimpleBankingSystem.Domain;
 using SimpleBankingSystem.Domain.Entities;
-using SimpleBankingSystem.Infrastructure.Repositories;
 using SimpleBankingSystem.Utilities;
 
 namespace SimpleBankingSystem.Presentation
 {
     internal static class IOHelper
     {
+        // This method collects customer information from user input and returns it as a tuple.
         public static (string lastName, string otherNames, DateOnly dateOfBirth, string email) CustomerInformation()
         {
             string lastName = UserInputOutput.GetUserInputString("Kindly enter Lastname: ");
@@ -21,6 +18,7 @@ namespace SimpleBankingSystem.Presentation
             return (lastName, otherNames, dateOfBirth, email);
         }
 
+        // This method presents account type options to the user and processes their selection to open a new account.
         public static void AccountTypeOption(AccountOpeningService accountOpeningService, Customer newCustomer)
         {
             UserInputOutput.AccountOpeningOptions();
@@ -30,7 +28,7 @@ namespace SimpleBankingSystem.Presentation
                 case 1:
                     try
                     {
-                        var result = accountOpeningService.OpenSavingsAccount(newCustomer);
+                        var result = accountOpeningService.OpenNewSavingsAccount(newCustomer);
                         UserInputOutput.ShowMessage("Congratulations - savings account number: " + result.Message);
                     }
                     catch (Exception ex)
@@ -42,7 +40,7 @@ namespace SimpleBankingSystem.Presentation
                 case 2:
                     try
                     {
-                        var result = accountOpeningService.OpenCurrentAccount(newCustomer);
+                        var result = accountOpeningService.OpenNewCurrentAccount(newCustomer);
                         UserInputOutput.ShowMessage("Congratulations - current account number: " + result.Message);
                     }
                     catch (Exception ex)
@@ -57,8 +55,9 @@ namespace SimpleBankingSystem.Presentation
             }
         }
 
-        public static void AdditionalAccountOption(IAccountOpeningService accountOpeningService,
-            IAccountRepository accountRepository, ICustomerRepository customerRepository)
+        // This method allows users to open additional accounts by selecting an existing account and choosing the type of
+        // additional account they want to open.
+        public static void AdditionalAccountOption(IAccountOpeningService accountOpeningService)
         {
             UserInputOutput.AccountOpeningOptions();
             int additionalAccountType = UserInputOutput.GetUserintegerInput("Kindly select choice of Account: ");
@@ -68,13 +67,13 @@ namespace SimpleBankingSystem.Presentation
                     try
                     {
                         string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
-                        Account existingCurrentaccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
-                        var result = accountOpeningService.OpenSavingsAccount(existingCurrentaccount.CustomerID);
+                        //Account existingCurrentaccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
+                        var result = accountOpeningService.OpenAdditionalSavingsAccount(existingAccountNumber);
 
                         if (result.IsSuccess)
                         {
-                            Customer customer = customerRepository.GetCustomerById(existingCurrentaccount.CustomerID);
-                            customer.LinkAccountNumber(result.Message);
+                            //Customer customer = customerRepository.GetCustomerById(existingCurrentaccount.CustomerID);
+                            //customer.LinkAccountNumber(result.Message);
 
                             UserInputOutput.ShowMessage("Congrats - savings account: " + result.Message);
                         }
@@ -91,12 +90,12 @@ namespace SimpleBankingSystem.Presentation
                     try
                     {
                         string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
-                        Account existingSavingsaccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
-                        var result = accountOpeningService.OpenCurrentAccount(existingSavingsaccount.CustomerID); ;
+                        //Account existingSavingsaccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
+                        var result = accountOpeningService.OpenAdditionalCurrentAccount(existingAccountNumber); ;
                         if (result.IsSuccess)
                         {
-                            Customer customer = customerRepository.GetCustomerById(existingSavingsaccount.CustomerID);
-                            customer.LinkAccountNumber(result.Message);
+                            //Customer customer = customerRepository.GetCustomerById(existingSavingsaccount.CustomerID);
+                            //customer.LinkAccountNumber(result.Message);
 
                             UserInputOutput.ShowMessage("Congrats - current account: " + result.Message);
                         }
@@ -115,12 +114,14 @@ namespace SimpleBankingSystem.Presentation
             }
         }
 
+        // This method handles the deposit transaction operation by collecting the account number and deposit amount from the user.
         public static void DepositTransactionOperation(IAccountOperationService accountOperationService)
         {
             try
             {
                 string depositAccountNumber = UserInputOutput.GetAccountString("Kindly enter account number: ");
                 decimal depositAmount = UserInputOutput.GetDecimalInput("Kindly enter amount to be deposited: ");
+
                 var result = accountOperationService.Deposit(depositAccountNumber, depositAmount);
 
                 if (result.IsFailure)
@@ -134,12 +135,14 @@ namespace SimpleBankingSystem.Presentation
             }
         }
 
+        // This method handles the withdrawal transaction operation by collecting the account number and withdrawal amount from the user.
         public static void WithdrawalTransactionOperation(IAccountOperationService accountOperationService)
         {
             try
             {
                 string withdrawalAccountNumber = UserInputOutput.GetAccountString("Kindly enter account number: ");
                 decimal withdrawalAmount = UserInputOutput.GetDecimalInput("Kindly enter amount to be withdrawn: ");
+
                 var result = accountOperationService.Withdraw(withdrawalAccountNumber, withdrawalAmount);
 
                 if (result.IsFailure)
@@ -153,11 +156,13 @@ namespace SimpleBankingSystem.Presentation
             }
         }
 
+        // This method retrieves and displays the account balance for a given account number entered by the user.
         public static void AccountBalanceOperation(IAccountQueryService accountQueryService)
         {
             try
             {
                 string accountNumber = UserInputOutput.GetAccountString("Kindly enter account number: ");
+
                 decimal balance = accountQueryService.GetAccountBalance(accountNumber);
                 UserInputOutput.ShowMessage($"Your account balance is {balance}");
             }
@@ -167,6 +172,7 @@ namespace SimpleBankingSystem.Presentation
             }
         }
 
+        // This method retrieves and displays the account statement for a given account number entered by the user.
         public static void AccountStatementOperation(IAccountQueryService accountQueryService)
         {
             try
@@ -192,8 +198,9 @@ namespace SimpleBankingSystem.Presentation
             }
         }
 
-        public static void UpdateCustomerProfileOperation(ICustomerProfileService customerProfileService, 
-            IAccountRepository accountRepository)
+        // This method allows users to update their customer profile information, such as last name and email address,
+        // by selecting an existing account and providing the new information.
+        public static void UpdateCustomerProfileOperation(ICustomerProfileService customerProfileService)
         {
             UserInputOutput.CustomerProfileUpdateOptions();
             int profileUpdateOption = UserInputOutput.GetUserintegerInput("Kindly select choice of Account: ");
@@ -204,8 +211,8 @@ namespace SimpleBankingSystem.Presentation
                     {
                         string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
                         string newLastname = UserInputOutput.GetUserInputString("Kindly enter your Lastname: ");
-                        Account customersAccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
-                        var result = customerProfileService.UpdateLastName(customersAccount.CustomerID, newLastname);
+                        //Account customersAccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
+                        var result = customerProfileService.UpdateLastName(existingAccountNumber, newLastname);
 
                         if (result.IsFailure)
                             UserInputOutput.ShowMessage(result.Message);
@@ -224,9 +231,9 @@ namespace SimpleBankingSystem.Presentation
                     {
                         string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
                         string newEmailAddress = UserInputOutput.GetUserEmailString("Kindly enter your new email address: ");
-                        Account customersAccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
+                        //Account customersAccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
 
-                        var result = customerProfileService.UpdateEmailAddress(customersAccount.CustomerID, newEmailAddress);
+                        var result = customerProfileService.UpdateEmailAddress(existingAccountNumber, newEmailAddress);
 
                         if (result.IsFailure)
                             UserInputOutput.ShowMessage(result.Message);
@@ -246,6 +253,8 @@ namespace SimpleBankingSystem.Presentation
             }
         }
 
+        // This method allows users to activate or deactivate their accounts by selecting an existing account
+        // and choosing the desired operation.
         public static void AccountActivationAndDeactivationOperation(IAccountStatusService accountStatusService)
         {
             UserInputOutput.AccountStatusOperationOptions();

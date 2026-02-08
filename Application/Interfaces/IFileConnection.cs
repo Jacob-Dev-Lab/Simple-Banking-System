@@ -1,7 +1,10 @@
 ﻿namespace SimpleBankingSystem.Application.Interfaces
 {
-    internal interface IFileConnection
+    public interface IFileConnection
     {
-        (string customerPath, string accountPath, string transactionPath, string logPath) ConnectionString();
+        public string CustomerFilePath { get; }
+        public string AccountFilePath { get; }
+        public string TransactionFilePath { get; }
+        public string LogFilePath { get; }
     }
 }

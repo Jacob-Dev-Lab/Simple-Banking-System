@@ -5,7 +5,7 @@ namespace SimpleBankingSystem.Application.Interfaces
 {
     internal interface ICustomerProfileService
     {
-        Result UpdateLastName(Guid customerID, string lastname);
-        Result UpdateEmailAddress(Guid customerID, string emailAddress);
+        Result UpdateLastName(string accountNumber, string lastname);
+        Result UpdateEmailAddress(string accountNumber, string emailAddress);
     }
 }
