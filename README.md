@@ -117,4 +117,3 @@ YouTube:
 
 LinkedIn:  
 `https://www.linkedin.com/in/jacoboluwajuwon` [(linkedin.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fwww.linkedin.com%2Fin%2Fjacoboluwajuwon")
->>>>>>> 57aca8685aed18d8a088fb13a29f1b44e1e64ec1
