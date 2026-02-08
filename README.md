@@ -1,5 +1,4 @@
-# 🚀 Simple Banking System — .NET Console Application
-
+# 🚀 Simple Banking System - .NET Console Application
 A clean, structured, and object‑oriented **banking system** built using **C# and .NET**.  
 This project demonstrates my understanding of **software architecture**, **SOLID principles**, **file‑based persistence**, and **clean code practices** as part of my journey to becoming a professional .NET developer.
 
@@ -113,5 +112,9 @@ This project is part of my continuous learning journey as I build real‑world a
 ---
 
 ## 🔗 Connect
-YouTube — Learning in public:  
+YouTube:  
 `https://www.youtube.com/@dotnetdevjourneywithjacob` [(youtube.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fwww.youtube.com%2F%40dotnetdevjourneywithjacob")
+
+LinkedIn:  
+`https://www.linkedin.com/in/jacoboluwajuwon` [(linkedin.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fwww.linkedin.com%2Fin%2Fjacoboluwajuwon")
+>>>>>>> 57aca8685aed18d8a088fb13a29f1b44e1e64ec1
