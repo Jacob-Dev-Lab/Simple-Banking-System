@@ -19,7 +19,7 @@ namespace SimpleBankingSystem.Presentation
         }
 
         // This method presents account type options to the user and processes their selection to open a new account.
-        public static void AccountTypeOption(AccountOpeningService accountOpeningService, Customer newCustomer)
+        public static void AccountTypeOption(IAccountOpeningService accountOpeningService, Customer newCustomer)
         {
             UserInputOutput.AccountOpeningOptions();
             int accountType = UserInputOutput.GetUserintegerInput("Kindly select choice of Account: ");

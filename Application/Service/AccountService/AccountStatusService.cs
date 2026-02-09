@@ -8,7 +8,7 @@ using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {
-    internal class AccountStatusService(IAccountRepository accountRepository) : IAccountStatusService
+    public class AccountStatusService(IAccountRepository accountRepository) : IAccountStatusService
     {
         private readonly IAccountRepository _accountRepository = accountRepository;
 

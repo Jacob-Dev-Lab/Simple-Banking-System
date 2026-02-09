@@ -5,7 +5,7 @@ using SimpleBankingSystem.Presentation;
 
 namespace SimpleBankingSystem.Application.Service.CustomerService
 {
-    internal class CustomerProfileService(ICustomerRepository customerRepository, 
+    public class CustomerProfileService(ICustomerRepository customerRepository, 
         IAccountRepository accountRepository) : ICustomerProfileService
     {
         private readonly ICustomerRepository _customerRepository = customerRepository;

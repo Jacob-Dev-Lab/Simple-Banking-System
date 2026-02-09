@@ -2,7 +2,7 @@
 
 namespace SimpleBankingSystem.Application.Interfaces
 {
-    internal interface IAccountStatusService
+    public interface IAccountStatusService
     {
         Result ActivateAccount(string accountNumber);
         Result DeActivateAccount(string accountNumber);
