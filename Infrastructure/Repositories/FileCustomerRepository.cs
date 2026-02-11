@@ -1,13 +1,15 @@
 ﻿using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.Entities;
 
 namespace SimpleBankingSystem.Infrastructure.Repositories
 {
-    internal class FileCustomerRepository(IFileConnection connection, ILogger logger) : ICustomerRepository
+    internal class FileCustomerRepository(IFileConnection connection, 
+        ILogger<FileCustomerRepository> logger) : ICustomerRepository
     {
         private readonly string _filePath = connection.CustomerFilePath;
-        private readonly ILogger _logger = logger;
+        private readonly ILogger<FileCustomerRepository> _logger = logger;
 
         private readonly List<Customer> _customers = [];
         private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
@@ -60,10 +62,12 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
             {
                 var serializedustomerData = JsonSerializer.Serialize(_customers, _jsonOptions);
                 File.WriteAllText(_filePath, serializedustomerData);
+
+                _logger.LogInformation("Customer data saved successfully.");
             }
             catch (Exception ex)
             {
-                _logger.LogInfo($"Error saving customer data: {ex.Message}");
+                _logger.LogError($"Error saving customer data: {ex.Message}");
                 throw;
             }
         }
@@ -86,11 +90,13 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
 
                 _customers.Clear();
                 _customers.AddRange(deserialisedData);
+                _logger.LogInformation("Customer data loaded successfully.");
+
                 return _customers;
             }
             catch (Exception ex)
             {
-                _logger.LogInfo($"Error loading customer data: {ex.Message}");
+                _logger.LogError($"Error loading customer data: {ex.Message}");
                 throw;
             }
         }

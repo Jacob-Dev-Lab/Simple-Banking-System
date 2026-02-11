@@ -67,18 +67,14 @@ namespace SimpleBankingSystem.Presentation
                     try
                     {
                         string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
-                        //Account existingCurrentaccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
                         var result = accountOpeningService.OpenAdditionalSavingsAccount(existingAccountNumber);
 
                         if (result.IsSuccess)
-                        {
-                            //Customer customer = customerRepository.GetCustomerById(existingCurrentaccount.CustomerID);
-                            //customer.LinkAccountNumber(result.Message);
-
                             UserInputOutput.ShowMessage("Congrats - savings account: " + result.Message);
-                        }
                         else
-                            UserInputOutput.ShowMessage(result.Message);
+                        {
+                            UserInputOutput.ShowMessage(result.Message ?? "Account Openning Failed.");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -90,17 +86,12 @@ namespace SimpleBankingSystem.Presentation
                     try
                     {
                         string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
-                        //Account existingSavingsaccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
-                        var result = accountOpeningService.OpenAdditionalCurrentAccount(existingAccountNumber); ;
-                        if (result.IsSuccess)
-                        {
-                            //Customer customer = customerRepository.GetCustomerById(existingSavingsaccount.CustomerID);
-                            //customer.LinkAccountNumber(result.Message);
+                        var result = accountOpeningService.OpenAdditionalCurrentAccount(existingAccountNumber);
 
+                        if (result.IsSuccess)
                             UserInputOutput.ShowMessage("Congrats - current account: " + result.Message);
-                        }
                         else
-                            UserInputOutput.ShowMessage(result.Message);
+                            UserInputOutput.ShowMessage(result.Message ?? "Account Openning Failed.");
                     }
                     catch (Exception ex)
                     {
@@ -125,7 +116,7 @@ namespace SimpleBankingSystem.Presentation
                 var result = accountOperationService.Deposit(depositAccountNumber, depositAmount);
 
                 if (result.IsFailure)
-                    UserInputOutput.ShowMessage(result.Message);
+                    UserInputOutput.ShowMessage(result.Message ?? "Transaction Failed.");
                 else
                     UserInputOutput.ShowMessage($"£{depositAmount}: Deposit transaction successsful");
             }
@@ -146,7 +137,7 @@ namespace SimpleBankingSystem.Presentation
                 var result = accountOperationService.Withdraw(withdrawalAccountNumber, withdrawalAmount);
 
                 if (result.IsFailure)
-                    UserInputOutput.ShowMessage(result.Message);
+                    UserInputOutput.ShowMessage(result.Message ?? "Transaction Failed.");
                 else
                     UserInputOutput.ShowMessage($"£{withdrawalAmount}: Withdrawal transaction successsful");
             }
@@ -192,7 +183,7 @@ namespace SimpleBankingSystem.Presentation
                     Console.WriteLine(transaction.ToString());
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 UserInputOutput.ShowMessage("Error: Failed to load account statement");
             }
@@ -211,15 +202,15 @@ namespace SimpleBankingSystem.Presentation
                     {
                         string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
                         string newLastname = UserInputOutput.GetUserInputString("Kindly enter your Lastname: ");
-                        //Account customersAccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
+
                         var result = customerProfileService.UpdateLastName(existingAccountNumber, newLastname);
 
                         if (result.IsFailure)
-                            UserInputOutput.ShowMessage(result.Message);
+                            UserInputOutput.ShowMessage(result.Message ?? "Update Failed.");
                         else
                             UserInputOutput.ShowMessage("Lastname Updated Successfully");
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         UserInputOutput.ShowMessage("Error: Failed to update last name");
                     }
@@ -231,16 +222,15 @@ namespace SimpleBankingSystem.Presentation
                     {
                         string existingAccountNumber = UserInputOutput.GetAccountString("Kindly enter existing account number: ");
                         string newEmailAddress = UserInputOutput.GetUserEmailString("Kindly enter your new email address: ");
-                        //Account customersAccount = accountRepository.GetAccountByAccountNumber(existingAccountNumber);
 
                         var result = customerProfileService.UpdateEmailAddress(existingAccountNumber, newEmailAddress);
 
                         if (result.IsFailure)
-                            UserInputOutput.ShowMessage(result.Message);
+                            UserInputOutput.ShowMessage(result.Message ?? "Update Failed.");
                         else
                             UserInputOutput.ShowMessage("Email address Updated Successfully");
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         UserInputOutput.ShowMessage("Error: Failed to update email address");
                     }
@@ -268,11 +258,11 @@ namespace SimpleBankingSystem.Presentation
                         var result = accountStatusService.ActivateAccount(accountNumberForActivation);
 
                         if (result.IsFailure)
-                            UserInputOutput.ShowMessage(result.Message);
+                            UserInputOutput.ShowMessage(result.Message ?? "Operation Failed.");
                         else
                             UserInputOutput.ShowMessage("Account activated successfully");
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         UserInputOutput.ShowMessage("Error: Failed to activate account");
                     }
@@ -286,11 +276,11 @@ namespace SimpleBankingSystem.Presentation
                         var result = accountStatusService.DeActivateAccount(accountNumberForDeactivation);
 
                         if (result.IsFailure)
-                            UserInputOutput.ShowMessage(result.Message);
+                            UserInputOutput.ShowMessage(result.Message ?? "Operation Failed.");
                         else
                             UserInputOutput.ShowMessage("Account deactivated successfully");
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         UserInputOutput.ShowMessage("Error: Failed to deactivate account");
                     }

@@ -1,4 +1,5 @@
-﻿using SimpleBankingSystem.Application.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain;
 using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.Enums;
@@ -8,11 +9,13 @@ namespace SimpleBankingSystem.Application.Service.AccountService
 {
     public class AccountOpeningService(IAccountRepository accountRepository,
         ICustomerRepository customerRepository,
-        IGenerateAccountNumber generateAccountNumber) : IAccountOpeningService
+        IGenerateAccountNumber generateAccountNumber,
+        ILogger<AccountOpeningService> logger) : IAccountOpeningService
     {
         private readonly IAccountRepository _accountRepository = accountRepository;
         private readonly IGenerateAccountNumber _generateAccountNumber = generateAccountNumber;
         private readonly ICustomerRepository _customerRepository = customerRepository;
+        private readonly ILogger<AccountOpeningService> _logger = logger;
 
         /* This method is responsible for processing the account opening logic,
          * including creating the account, linking it to the customer,
@@ -54,7 +57,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
             var customerId = _accountRepository.GetAccountByAccountNumber(accountNumber).CustomerID;
             var customer = _customerRepository.GetCustomerById(customerId);
 
-            var savingsAccountNumber = AccountOpenningProcessor(customerId, customer, AccountType.Savings);   
+            var savingsAccountNumber = AccountOpenningProcessor(customerId, customer, AccountType.Savings);
 
             return Result.Success(savingsAccountNumber);
         }
@@ -80,18 +83,24 @@ namespace SimpleBankingSystem.Application.Service.AccountService
          * Finally, they return a success result with the new account number.*/
         public Result OpenNewSavingsAccount(Customer customer)
         {
+            _logger.LogInformation("Initiated account opening for customer: {CustomerId}", customer.CustomerId);
             _customerRepository.Add(customer);
 
             var savingsAccountNumber = AccountOpenningProcessor(customer.CustomerId, customer, AccountType.Savings);
+
+            _logger.LogInformation("Successfully opened savings account for customer: {CustomerId}", customer.CustomerId);
 
             return Result.Success(savingsAccountNumber);
         }
 
         public Result OpenNewCurrentAccount(Customer customer)
         {
+            _logger.LogInformation("\"Initiated account opening for customer: {CustomerId}", customer.CustomerId);
             _customerRepository.Add(customer);
 
             var currentAccountNumber = AccountOpenningProcessor(customer.CustomerId, customer, AccountType.Current);
+
+            _logger.LogInformation("Successfully opened current account for customer: {CustomerId}", customer.CustomerId);
 
             return Result.Success(currentAccountNumber);
         }

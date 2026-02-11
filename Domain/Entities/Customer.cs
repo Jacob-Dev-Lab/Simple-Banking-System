@@ -16,8 +16,11 @@ namespace SimpleBankingSystem.Domain.Entities
             if (string.IsNullOrWhiteSpace(otherNames))
                 throw new ArgumentException("Othernames required", nameof(otherNames));
 
-            if (dateOfBirth == default)
+            if (dateOfBirth.Equals(null))
                 throw new ArgumentException("Date of birth is required", nameof(dateOfBirth));
+
+            if (dateOfBirth > DateOnly.FromDateTime(DateTime.Now.AddYears(-18)))
+                throw new ArgumentException("Customer must be at least 18 years old to open an account", nameof(dateOfBirth));
 
             if (dateOfBirth > DateOnly.FromDateTime(DateTime.UtcNow))
                 throw new ArgumentException("Date of birth cannot be in the future", nameof(dateOfBirth));

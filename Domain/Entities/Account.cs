@@ -5,7 +5,7 @@ namespace SimpleBankingSystem.Domain
 {
     public abstract class Account
     {
-        protected Account(Guid customerID, string accountNumber, AccountType accountType)
+        protected Account(Guid customerID, string accountNumber, AccountType accountType, decimal balance = 0m)
         {
             if (customerID.Equals(Guid.Empty))
                 throw new ArgumentException("Customer ID cannot be empty.", nameof(customerID));
@@ -20,10 +20,12 @@ namespace SimpleBankingSystem.Domain
             AccountNumber = accountNumber;
             AccountType = accountType;
 
-            Balance = 0m;
+            Balance = balance;
             DateCreated = DateOnly.FromDateTime(DateTime.Now);
             IsActive = true;
         }
+
+        //public Account() { }
 
         public Guid CustomerID { get; }
         public string AccountNumber { get; }

@@ -1,14 +1,15 @@
 ﻿using System.Text.Json;
+using Microsoft.Extensions.Logging;
 using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain;
 using SimpleBankingSystem.Domain.Enums;
 
 namespace SimpleBankingSystem.Infrastructure.Repositories
 {
-    internal class FileAccountRepository(IFileConnection connection, ILogger logger) : IAccountRepository
+    internal class FileAccountRepository(IFileConnection connection, ILogger<FileAccountRepository> logger) : IAccountRepository
     {
         private readonly string _filePath = connection.AccountFilePath;
-        private readonly ILogger _logger = logger;
+        private readonly ILogger<FileAccountRepository> _logger = logger;
 
         private readonly List<Account> _accounts = [];
         private readonly JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
@@ -59,10 +60,12 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
             {
                 var serializedAccountData = JsonSerializer.Serialize(_accounts, _jsonOptions);
                 File.WriteAllText(_filePath, serializedAccountData);
+
+                _logger.LogInformation($"Saved accounts to file successfully.");
             }
             catch (Exception ex)
             {
-                _logger.LogInfo($"Error saving account data: {ex.Message}");
+                _logger.LogError($"Error saving account data: {ex.Message}");
                 throw;
             }
         }
@@ -98,11 +101,13 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
                 }
                 _accounts.Clear();
                 _accounts.AddRange(deserializedAccounts);
+                _logger.LogInformation($"Accounts loaded successfully.");
+
                 return _accounts;
             }
             catch (Exception ex)
             {
-                _logger.LogInfo($"Error loading account data: {ex.Message}");
+                _logger.LogError($"Error loading account data: {ex.Message}");
                 throw;
             }
         }

@@ -3,7 +3,8 @@ using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Domain
 {
-    public sealed class SavingsAccount(Guid customerID, string accountNumber) : Account(customerID, accountNumber, AccountType.Savings)
+    public sealed class SavingsAccount(Guid customerID, string accountNumber, decimal balance = 0m) : 
+        Account(customerID, accountNumber, AccountType.Savings, balance)
     {
         private static readonly decimal _minimumBalance = 50m;
 

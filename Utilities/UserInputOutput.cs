@@ -32,6 +32,13 @@ namespace SimpleBankingSystem.Utilities
             while (!DateOnly.TryParse(Console.ReadLine(), out dateOfBirth))
             {
                 Console.Write("Invalid entry, try again (YYYY-MM-DD): ");
+                continue;
+            }
+
+            if (dateOfBirth > DateOnly.FromDateTime(DateTime.Now.AddYears(-18)))
+            {
+                Console.WriteLine("You must be at least 18 years old to open an account.");
+                return GetUserDateOfBirth(prompt);
             }
 
             return dateOfBirth;
