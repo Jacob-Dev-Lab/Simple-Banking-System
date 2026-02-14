@@ -4,6 +4,7 @@ using SimpleBankingSystem.Domain;
 using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.Enums;
 using SimpleBankingSystem.Domain.ErrorHandler;
+using SimpleBankingSystem.Domain.Interfaces;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {
@@ -59,7 +60,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
 
             var savingsAccountNumber = AccountOpenningProcessor(customerId, customer, AccountType.Savings);
 
-            return Result.Success(savingsAccountNumber);
+            return Result.Success("Your savings account number is: " + savingsAccountNumber);
         }
 
         public Result OpenAdditionalCurrentAccount(string accountNumber)
@@ -73,7 +74,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
 
             var currentAccountNumber = AccountOpenningProcessor(customerId, customer, AccountType.Current);
 
-            return Result.Success(currentAccountNumber);
+            return Result.Success("Your current account number is: " + currentAccountNumber);
         }
 
         /* The OpenNewSavingsAccount and OpenNewCurrentAccount methods are responsible 
@@ -90,19 +91,19 @@ namespace SimpleBankingSystem.Application.Service.AccountService
 
             _logger.LogInformation("Successfully opened savings account for customer: {CustomerId}", customer.CustomerId);
 
-            return Result.Success(savingsAccountNumber);
+            return Result.Success("Your savings account number is: " + savingsAccountNumber);
         }
 
         public Result OpenNewCurrentAccount(Customer customer)
         {
-            _logger.LogInformation("\"Initiated account opening for customer: {CustomerId}", customer.CustomerId);
+            _logger.LogInformation("Initiated account opening for customer: {CustomerId}", customer.CustomerId);
             _customerRepository.Add(customer);
 
             var currentAccountNumber = AccountOpenningProcessor(customer.CustomerId, customer, AccountType.Current);
 
             _logger.LogInformation("Successfully opened current account for customer: {CustomerId}", customer.CustomerId);
 
-            return Result.Success(currentAccountNumber);
+            return Result.Success("Your current account number is: " + currentAccountNumber);
         }
 
         /* The EnsureCustomerDoesNotHaveAccountType method checks if the customer associated 

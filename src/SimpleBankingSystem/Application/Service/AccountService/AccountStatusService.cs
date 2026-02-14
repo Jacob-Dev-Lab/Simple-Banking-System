@@ -27,7 +27,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
 
             _accountRepository.Save();
 
-            return Result.Success();
+            return Result.Success("Account activated successfully.");
         }
 
         public Result DeActivateAccount(string accountNumber)
@@ -40,7 +40,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
 
             _accountRepository.Save();
 
-            return Result.Success();
+            return Result.Success("Account deactivated successfully.");
         }
     }
 }

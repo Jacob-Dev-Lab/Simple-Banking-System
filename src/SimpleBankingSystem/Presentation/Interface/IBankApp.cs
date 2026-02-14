@@ -1,4 +1,4 @@
-﻿namespace SimpleBankingSystem.Application.Interfaces
+﻿namespace SimpleBankingSystem.Presentation.Interface
 {
     public interface IBankApp
     {

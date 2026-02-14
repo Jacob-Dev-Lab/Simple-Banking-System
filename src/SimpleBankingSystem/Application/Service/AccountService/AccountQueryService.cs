@@ -1,7 +1,6 @@
 ﻿using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
-using SimpleBankingSystem.Infrastructure.Repositories;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {
@@ -13,10 +12,10 @@ namespace SimpleBankingSystem.Application.Service.AccountService
 
         // The GetAccountBalance method retrieves the account using the
         // provided account number and returns its balance.
-        public decimal GetAccountBalance(string accountNumber)
+        public Result GetAccountBalance(string accountNumber)
         {
             var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
-            return account.Balance;
+            return Result.Success("Your account balance = " + account.Balance);
         }
 
         /* The GetTransactions method retrieves the transactions associated with 

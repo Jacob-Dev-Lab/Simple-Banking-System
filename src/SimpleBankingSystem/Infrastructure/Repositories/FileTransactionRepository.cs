@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.Entities;
+using SimpleBankingSystem.Infrastructure.Interface;
 
 namespace SimpleBankingSystem.Infrastructure.Repositories
 {

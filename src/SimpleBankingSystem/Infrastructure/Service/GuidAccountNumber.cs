@@ -1,6 +1,6 @@
-using SimpleBankingSystem.Application.Interfaces;
+using SimpleBankingSystem.Domain.Interfaces;
 
-namespace SimpleBankingSystem.Application.Service
+namespace SimpleBankingSystem.Infrastructure.Service
 {
     public class GuidAccountNumber : IGenerateAccountNumber
     {

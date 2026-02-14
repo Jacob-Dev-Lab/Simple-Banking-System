@@ -41,7 +41,7 @@ namespace SimpleBankingSystem.Application.Service.CustomerService
             _customerRepository.Save();
             _logger.LogInformation("Lastname updated successfully for {accountNumber}", accountNumber);
 
-            return Result.Success();
+            return Result.Success("Lastname updated successfully");
         }
         public Result UpdateEmailAddress(string accountNumber, string emailAddress)
         {
@@ -67,7 +67,7 @@ namespace SimpleBankingSystem.Application.Service.CustomerService
             _customerRepository.Save();
             _logger.LogInformation("Email Address updated successfully for {accountNumber}", accountNumber);
 
-            return Result.Success();
+            return Result.Success("Email address updated successfully");
         }
 
         private static string MessageAccountNotFound(string accountNumber) => $"Account number {accountNumber} not found.";

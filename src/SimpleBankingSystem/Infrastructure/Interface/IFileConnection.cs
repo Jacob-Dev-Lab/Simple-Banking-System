@@ -1,4 +1,4 @@
-﻿namespace SimpleBankingSystem.Application.Interfaces
+﻿namespace SimpleBankingSystem.Infrastructure.Interface
 {
     public interface IFileConnection
     {

@@ -42,7 +42,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
             _accountRepository.Save();
             _logger.LogInformation("Deposit transaction completed successfully");
 
-            return Result.Success();
+            return Result.Success($"£{amount}: Deposited successsfully");
         }
 
         public Result Withdraw(string accountNumber, decimal amount)
@@ -66,7 +66,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
             _accountRepository.Save();
             _logger.LogInformation("Withdrawal transaction completed successfully");
 
-            return Result.Success();
+            return Result.Success($"£{amount}: Withdrawn successsfully");
         }
     }
 }

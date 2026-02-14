@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SimpleBankingSystem.Application.Interfaces;
+using SimpleBankingSystem.Domain.Interfaces;
 
 namespace TestSimpleBankingSystem.Tests
 {
