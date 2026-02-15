@@ -64,7 +64,7 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
                 var serializedustomerData = JsonSerializer.Serialize(_customers, _jsonOptions);
                 File.WriteAllText(_filePath, serializedustomerData);
 
-                _logger.LogInformation("Customer data saved successfully.");
+                //_logger.LogInformation("Customer data saved successfully.");
             }
             catch (Exception ex)
             {
@@ -91,7 +91,7 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
 
                 _customers.Clear();
                 _customers.AddRange(deserialisedData);
-                _logger.LogInformation("Customer data loaded successfully.");
+                //_logger.LogInformation("Customer data loaded successfully.");
 
                 return _customers;
             }

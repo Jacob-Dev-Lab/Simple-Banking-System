@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Presentation.Enums;
 using SimpleBankingSystem.Presentation.Interface;
-using SimpleBankingSystem.Utilities;
 
 namespace SimpleBankingSystem.Presentation.Oprations
 {
@@ -22,29 +21,22 @@ namespace SimpleBankingSystem.Presentation.Oprations
 
         public AppState Handle()
         {
-            try
-            {
-                var accountNumber = _userInputReader.ReadAccountNumber("Enter Account Number: ");
-                var transactions = _accountQueryService.GetTransactions(accountNumber);
+            var accountNumber = _userInputReader.ReadAccountNumber("Enter Account Number: ");
+            var transactions = _accountQueryService.GetTransactions(accountNumber);
 
-                if (transactions == null)
-                {
-                    _consoleRenderer.ShowMessage("No transaction(s) on this account at the moment");
-                    Thread.Sleep(3000);
-                    return AppState.MainMenu;
-                }
-
-                Console.WriteLine("*******************************************************************");
-                foreach (var transaction in transactions)
-                {
-                    _consoleRenderer.ShowMessage(transaction.ToString());
-                }
-            }
-            catch (Exception)
+            if (transactions == null)
             {
-                _consoleRenderer.ShowMessage("Error: Failed to load account statement");
+                _consoleRenderer.ShowMessage("No transaction(s) on this account at the moment");
+                Thread.Sleep(3000);
+                return AppState.MainMenu;
             }
 
+            Console.WriteLine("*******************************************************************");
+            foreach (var transaction in transactions)
+            {
+                Console.WriteLine(transaction.ToString());
+            }
+            
             return AppState.MainMenu;
         }
     }

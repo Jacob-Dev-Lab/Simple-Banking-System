@@ -17,7 +17,7 @@ namespace SimpleBankingSystem.Presentation.ConsoleUI
                 valid = !string.IsNullOrWhiteSpace(value) && !string.IsNullOrEmpty(value) && !value.Any(char.IsDigit);
 
                 if (!valid)
-                    Console.WriteLine("Invalid Entry, try again: ");
+                    Console.Write("Invalid Entry, try again: ");
             }
             while (!valid);
 
@@ -67,7 +67,7 @@ namespace SimpleBankingSystem.Presentation.ConsoleUI
                 valid = int.TryParse(Console.ReadLine(), out input);
 
                 if (!valid)
-                    Console.WriteLine($"Invalid Option, try again: ");
+                    Console.Write($"Invalid Option, try again: ");
             }
             while (!valid);
 
@@ -86,7 +86,7 @@ namespace SimpleBankingSystem.Presentation.ConsoleUI
                 valid = !string.IsNullOrWhiteSpace(accountNumber);
 
                 if (!valid)
-                    Console.WriteLine("Invalid Entry, try again: ");
+                    Console.Write("Invalid Entry, try again: ");
             }
             while (!valid);
 
@@ -104,7 +104,7 @@ namespace SimpleBankingSystem.Presentation.ConsoleUI
                 valid = decimal.TryParse(Console.ReadLine(), out value);
 
                 if (!valid)
-                    Console.WriteLine("Invalid Entry, try again: ");
+                    Console.Write("Invalid Entry, try again: ");
             }
             while (!valid);
 

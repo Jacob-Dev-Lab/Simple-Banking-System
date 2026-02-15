@@ -18,27 +18,19 @@ namespace SimpleBankingSystem.Presentation.Oprations
 
         public AppState Handle()
         {
-            try
+            var accountNumber = _userInputReader.ReadAccountNumber("Enter Account Number: ");
+            _consoleRenderer.ShowAccountOpeningMenu();
+
+            var accountType = (AccountType)_userInputReader.ReadInt("Kindly select choice of Account: ");
+
+            var result = accountType switch
             {
-                var accountNumber = _userInputReader.ReadAccountNumber("Enter Account Number: ");
-                _consoleRenderer.ShowAccountOpeningMenu();
+                AccountType.Savings => _accountOpeningService.OpenAdditionalSavingsAccount(accountNumber),
+                AccountType.Current => _accountOpeningService.OpenAdditionalCurrentAccount(accountNumber),
+                _ => Result.Failure("Invalid entry, try again.")
+            };
 
-                var accountType = (AccountType)_userInputReader.ReadInt("Kindly select choice of Account: ");
-
-                var result = accountType switch
-                {
-                    AccountType.Savings => _accountOpeningService.OpenAdditionalSavingsAccount(accountNumber),
-                    AccountType.Current => _accountOpeningService.OpenAdditionalCurrentAccount(accountNumber),
-                    _ => Result.Failure("Invalid entry, try again.")
-                };
-
-                _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed.");
-
-            }
-            catch (Exception ex)
-            {
-                _consoleRenderer.ShowMessage("Error: " + ex.Message);
-            }
+            _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed.");
 
             return AppState.MainMenu;
         }

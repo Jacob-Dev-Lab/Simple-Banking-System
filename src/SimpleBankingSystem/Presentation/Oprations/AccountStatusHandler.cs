@@ -17,25 +17,18 @@ namespace SimpleBankingSystem.Presentation.Oprations
 
         public AppState Handle()
         {
-            try
-            {
-                var accountNumber = _userInputReader.ReadAccountNumber("Enter account number: ");
-                _consoleRenderer.ShowAccountStatusMenu();
+            var accountNumber = _userInputReader.ReadAccountNumber("Enter account number: ");
+            _consoleRenderer.ShowAccountStatusMenu();
 
-                var options = (AccountState)_userInputReader.ReadInt("Select an option: ");
-                var result = options switch
-                {
-                    AccountState.Activate => _accountStatusService.ActivateAccount(accountNumber),
-                    AccountState.Deactivate => _accountStatusService.DeActivateAccount(accountNumber),
-                    _ => Result.Failure("Invalid Entry...")
-                };
-                    
-                _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed");
-            }
-            catch (Exception ex)
+            var options = (AccountState)_userInputReader.ReadInt("Select an option: ");
+            var result = options switch
             {
-                _consoleRenderer.ShowMessage("Error: " + ex.Message);
-            }
+                AccountState.Activate => _accountStatusService.ActivateAccount(accountNumber),
+                AccountState.Deactivate => _accountStatusService.DeActivateAccount(accountNumber),
+                _ => Result.Failure("Invalid Entry...")
+            };
+                    
+            _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed");
 
             return AppState.MainMenu;
         }

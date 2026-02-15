@@ -20,34 +20,26 @@ namespace SimpleBankingSystem.Presentation.Oprations
 
         public AppState Handle()
         {
-            try
+            var customerInformation = _userInputReader.ReadCustomer();
+
+            var customer = _createCustomerService.CreateCustomer(
+                customerInformation.lastName,
+                customerInformation.otherNames,
+                customerInformation.dateOfBirth,
+                customerInformation.email);
+
+            _consoleRenderer.ShowAccountOpeningMenu();
+
+            var accountType = (AccountType)_userInputReader.ReadInt("Kindly select choice of Account: ");
+
+            var result = accountType switch
             {
-                var customerInformation = _userInputReader.ReadCustomer();
+                AccountType.Savings => _accountOpeningService.OpenNewSavingsAccount(customer),
+                AccountType.Current => _accountOpeningService.OpenNewCurrentAccount(customer),
+                _ => Result.Failure("Invalid entry, try again.")
+            };
 
-                var customer = _createCustomerService.CreateCustomer(
-                    customerInformation.lastName,
-                    customerInformation.otherNames,
-                    customerInformation.dateOfBirth,
-                    customerInformation.email);
-
-                _consoleRenderer.ShowAccountOpeningMenu();
-
-                var accountType = (AccountType)_userInputReader.ReadInt("Kindly select choice of Account: ");
-
-                var result = accountType switch
-                {
-                    AccountType.Savings => _accountOpeningService.OpenNewSavingsAccount(customer),
-                    AccountType.Current => _accountOpeningService.OpenNewCurrentAccount(customer),
-                    _ => Result.Failure("Invalid entry, try again.")
-                };
-
-                _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed.");
-
-            }
-            catch (Exception ex)
-            {
-                _consoleRenderer.ShowMessage("Error: " + ex.Message);
-            }
+            _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed.");
                 
             return AppState.MainMenu;
         }

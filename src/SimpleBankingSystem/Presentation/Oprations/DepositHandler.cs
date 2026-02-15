@@ -16,19 +16,12 @@ namespace SimpleBankingSystem.Presentation.Oprations
 
         public AppState Handle()
         {
-            try
-            {
-                var accountNumber = _userInputReader.ReadAccountNumber("Enter Account Number: ");
-                var amount = _userInputReader.ReadDecimal("Enter amount to be deposited: "); 
+            var accountNumber = _userInputReader.ReadAccountNumber("Enter Account Number: ");
+            var amount = _userInputReader.ReadDecimal("Enter amount to be deposited: "); 
 
-                var result = _accountOperationService.Deposit(accountNumber, amount);
+            var result = _accountOperationService.Deposit(accountNumber, amount);
 
-                _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed");
-            }
-            catch (Exception ex)
-            {
-                _consoleRenderer.ShowMessage("Error: " + ex.Message);
-            }
+            _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed");
 
             return AppState.MainMenu;
         }

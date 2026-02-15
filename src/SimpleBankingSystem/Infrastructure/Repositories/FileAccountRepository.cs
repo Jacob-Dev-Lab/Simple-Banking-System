@@ -62,7 +62,7 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
                 var serializedAccountData = JsonSerializer.Serialize(_accounts, _jsonOptions);
                 File.WriteAllText(_filePath, serializedAccountData);
 
-                _logger.LogInformation($"Saved accounts to file successfully.");
+                //_logger.LogInformation($"Saved accounts to file successfully.");
             }
             catch (Exception ex)
             {
@@ -102,7 +102,7 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
                 }
                 _accounts.Clear();
                 _accounts.AddRange(deserializedAccounts);
-                _logger.LogInformation($"Accounts loaded successfully.");
+                //_logger.LogInformation($"Accounts loaded successfully.");
 
                 return _accounts;
             }

@@ -63,7 +63,7 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
                 var jsonData = JsonSerializer.Serialize(_transactions, _jsonOption);
                 File.WriteAllText(_filePath, jsonData);
 
-                _logger.LogInformation("Transaction data saved successfully.");
+                //_logger.LogInformation("Transaction data saved successfully.");
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace SimpleBankingSystem.Infrastructure.Repositories
 
                 _transactions.Clear();
                 _transactions.AddRange(deserialisedData);
-                _logger.LogInformation("Transaction data loaded successfully.");
+                //_logger.LogInformation("Transaction data loaded successfully.");
 
                 return _transactions;
             }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SimpleBankingSystem.Application.Interfaces;
+﻿using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Presentation.Enums;
 using SimpleBankingSystem.Presentation.Interface;
 
@@ -21,17 +16,10 @@ namespace SimpleBankingSystem.Presentation.Oprations
 
         public AppState Handle()
         {
-            try
-            {
-                var accountNumber = _userInputReader.ReadAccountNumber("Enter Account Number: ");
+            var accountNumber = _userInputReader.ReadAccountNumber("Enter Account Number: ");
 
-                var result = _accountQueryService.GetAccountBalance(accountNumber);
-                _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed");
-            }
-            catch (Exception ex)
-            {
-                _consoleRenderer.ShowMessage("Error: " + ex.Message);
-            }
+            var result = _accountQueryService.GetAccountBalance(accountNumber);
+            _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed");
 
             return AppState.MainMenu;
         }

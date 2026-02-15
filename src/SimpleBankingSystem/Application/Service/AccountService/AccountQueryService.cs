@@ -15,7 +15,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
         public Result GetAccountBalance(string accountNumber)
         {
             var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
-            return Result.Success("Your account balance = " + account.Balance);
+            return Result.Success("Your account balance = £" + account.Balance);
         }
 
         /* The GetTransactions method retrieves the transactions associated with 

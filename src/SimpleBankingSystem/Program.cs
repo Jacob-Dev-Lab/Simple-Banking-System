@@ -64,13 +64,16 @@ namespace SimpleBankingSystem
                 })
                 .Build();
 
+            Log.Information("Starting application.");
+
             host.Services.GetRequiredService<ICustomerRepository>()?.Load();
             host.Services.GetRequiredService<IAccountRepository>()?.Load();
             host.Services.GetRequiredService<ITransactionRepository>()?.Load();
 
             var app = host.Services.GetRequiredService<IBankApp>();
-            Log.Information("Starting the Simple Banking System application.");
             app.Run();
+
+            Log.Information("Ending application");
         }
     }
 }

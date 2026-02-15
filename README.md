@@ -4,34 +4,62 @@ This project demonstrates my understanding of **software architecture**, **SOLID
 
 ---
 
+## 👨‍💻 Backend Skills Demonstrated
+
+This project showcases practical knowledge of:
+
+- C# object-oriented programming
+- SOLID design principles
+- Layered architecture
+- Repository pattern
+- Abstraction via interfaces
+- Business rule enforcement
+- File-based persistence
+- Clean and maintainable code structure
+- Separation of concerns  
+
+Although implemented as a console application, the architecture mirrors production-style backend systems built with ASP.NET Core.
+---
+
 ## 📌 Features
 - Customer onboarding  
 - Open Savings or Current accounts  
 - Deposit and withdraw funds  
 - View transaction history  
-- Update customer profile (last name, email, address)  
+- Update customer profile (last name, email address)  
 - Check account balance  
 - Activate or deactivate an account  
 - Input validation and error handling  
-- File‑based data storage (Accounts, Customers, Transactions)
+- State-based control flow
+- Persistent storage of:
+-- Accounts
+-- Customers
+-- Transactions
 
 ---
 
-## 🧠 Concepts Applied
+## 🧠 Concepts & Engineering Principles Applied
 
-### Object‑Oriented Programming
-- Encapsulation  
-- Abstraction  
-- Inheritance  
-- Polymorphism  
-- Separation of concerns  
+### Object-Oriented Programming
+
+- Encapsulation
+- Abstraction
+- Inheritance
+- Polymorphism
+- Domain modeling
 
 ### SOLID Principles
-- **SRP** – Each class has a single responsibility  
-- **OCP** – System is extendable without modifying core logic  
-- **LSP** – SavingsAccount and CurrentAccount behave consistently as Accounts  
-- **ISP** – Interfaces are small and focused  
-- **DIP** – Repositories abstract away data access  
+
+- SRP (Single Responsibility Principle)
+Each class handles one clearly defined responsibility.
+- OCP (Open/Closed Principle)
+New account types or features can be added without modifying core logic.
+- LSP (Liskov Substitution Principle)
+SavingsAccount and CurrentAccount behave consistently as Account types.
+- ISP (Interface Segregation Principle)
+Interfaces are small, specific, and purpose-driven.
+- DIP (Dependency Inversion Principle)
+Business logic depends on abstractions, not concrete file implementations.
 
 ---
 
@@ -67,47 +95,80 @@ This project demonstrates my understanding of **software architecture**, **SOLID
 - File I/O for persistence  
 - OOP and SOLID design  
 - Custom validation utilities  
+- Repository Pattern
+- State-based control flow
+- Dependency Injection
+- Logging(Serilog)
 
 ---
 
 ## ▶ How to Run the Project
-1. Clone the repository  
+### Requirements
+- .NET SDK (Specify your version, e.g., .NET 9)
+- Git
+
+### Setup 
 ```
-git clone https://github.com/Jacob-Dev-Lab/Simple-Banking-System
-```
-2. Open the solution in Visual Studio  
-3. Build and run the project  
-4. Follow the on‑screen menu to interact with the system  
+git clone https://github.com/Jacob-Dev-Lab/Simple-Banking-System.git
+cd Simple-Banking-System
+dotnet restore
+dotnet run
+```  
+---
+
+## 🎥 Video Walkthrough
+
+Watch a short demo of the application:
+
+https://www.youtube.com/watch?v=6ZcPUEo-dYE
+
+(The demo shows account creation, transactions, and persistent data behavior.)
+
+---
+
+## 📸 Screenshots
+
+### Main Menu
+![Main Menu](docs/images/main-menu.png)
+
+### Create Account
+![Create Account](docs/images/create-account.png)
+
+### Deposit
+![Create Account](docs/images/deposit.png)
+
+### Transaction History
+![Transaction History](docs/images/transaction-history.png)
 
 ---
 
 ## 📘 What I Learned
 This project helped me strengthen my understanding of:
 
-- Designing a multi‑layered .NET application  
+- Designing a multi‑layered .NET application 
+- Structuring business logic independently of UI 
 - Applying SOLID principles in real code  
 - Building abstractions using interfaces  
-- Implementing the Repository Pattern  
-- Managing file‑based persistence  
+- Implementing repository abstraction 
+- Managing persistent storage  
 - Structuring a clean and maintainable codebase  
 - Handling user input and validation  
-- Modeling real‑world domains in C#  
+- Modeling real‑world financial operations
+- writing readable and maintainable backend code 
 
 ---
 
 ## 🔧 Future Improvements
-- Dependency Injection (DI)
-- JSON‑based storage instead of text files  
-- A proper service layer  
-- Improved error handling  
-- A more interactive console UI  
-- Migration to a database (SQL or EF Core)  
+- Replace file storage with EF Core + SQL Server  
 - A web‑based version using ASP.NET Core  
+- Add authentication and authorization
 
 ---
 
 ## 🎯 Purpose
-This project is part of my continuous learning journey as I build real‑world applications to sharpen my skills and grow into a professional .NET developer.
+This project is part of my journey as grow to becoming a professional .NET backend developer, focusing on writing clean, maintainable, and extensible code.
+
+It represents my ability to design structured backend systems beyond basic CRUD implementations.
 
 ---
 

@@ -17,37 +17,30 @@ namespace SimpleBankingSystem.Presentation.Oprations
 
         public AppState Handle()
         {
-            try
+            var accountNumber = _userInputReader.ReadAccountNumber("Enter account number: ");
+            _consoleRenderer.ShowProfileUpdateMenu();
+
+            var options = (CustomerDataType)_userInputReader.ReadInt("Select an option: ");
+            Result result;
+
+            switch (options)
             {
-                var accountNumber = _userInputReader.ReadAccountNumber("Enter account number: ");
-                _consoleRenderer.ShowProfileUpdateMenu();
+                case CustomerDataType.LastName:
+                    var lastname = _userInputReader.ReadString("Enter new lastname: ");
+                    result = _customerProfileService.UpdateLastName(accountNumber, lastname);
+                    break;
 
-                var options = (CustomerDataType)_userInputReader.ReadInt("Select an option: ");
-                Result result;
+                case CustomerDataType.Email:
+                    var email = _userInputReader.ReadString("Enter new email address: ");
+                    result = _customerProfileService.UpdateLastName(accountNumber, email);
+                    break;
 
-                switch (options)
-                {
-                    case CustomerDataType.LastName:
-                        var lastname = _userInputReader.ReadString("Enter new lastname: ");
-                        result = _customerProfileService.UpdateLastName(accountNumber, lastname);
-                        break;
-
-                    case CustomerDataType.Email:
-                        var email = _userInputReader.ReadString("Enter new email address: ");
-                        result = _customerProfileService.UpdateLastName(accountNumber, email);
-                        break;
-
-                    default:
-                        _consoleRenderer.ShowMessage("Invalid entry...");
-                        return AppState.MainMenu;
-                }
+                default:
+                    _consoleRenderer.ShowMessage("Invalid entry...");
+                    return AppState.MainMenu;
+            }
                 
-                _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed");
-            }
-            catch (Exception ex)
-            {
-                _consoleRenderer.ShowMessage("Error: " + ex.Message);
-            }
+            _consoleRenderer.ShowMessage(result.Message ?? "Operation Failed");
 
             return AppState.MainMenu;
         }

@@ -7,7 +7,7 @@ using SimpleBankingSystem.Presentation.Enums;
 
 namespace SimpleBankingSystem.Presentation.Interface
 {
-    internal interface IConsoleRenderer
+    public interface IConsoleRenderer
     {
         public void ShowHeader();
 
