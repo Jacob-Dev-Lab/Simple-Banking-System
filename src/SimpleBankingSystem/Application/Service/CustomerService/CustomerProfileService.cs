@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.ErrorHandler;
+using SimpleBankingSystem.Infrastructure.Interface;
 
 namespace SimpleBankingSystem.Application.Service.CustomerService
 {
@@ -21,14 +22,16 @@ namespace SimpleBankingSystem.Application.Service.CustomerService
         public Result UpdateLastName(string accountNumber, string lastname)
         {
             _logger.LogInformation("Initiated Lastname update on {accountNumber}", accountNumber);
-            var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
+            var account = _accountRepository.GetByNumber(accountNumber);
             if (account is null)
             {
-                _logger.LogWarning("Failed to update Lastname: invalid account number");
+                _logger.LogWarning("Error: invalid account number");
                 return Result.Failure(MessageAccountNotFound(accountNumber));
             }
 
-            var customer = _customerRepository.GetCustomerById(account.CustomerID);
+            var customer = _customerRepository.GetById(account.CustomerId);
+            if (customer is null)
+                return Result.Failure("Error: invalid account number");
 
             var result = customer.ChangeLastname(lastname);
 
@@ -38,7 +41,7 @@ namespace SimpleBankingSystem.Application.Service.CustomerService
                 return result;
             }
 
-            _customerRepository.Save();
+            _customerRepository.Update(customer);
             _logger.LogInformation("Lastname updated successfully for {accountNumber}", accountNumber);
 
             return Result.Success("Lastname updated successfully");
@@ -47,14 +50,16 @@ namespace SimpleBankingSystem.Application.Service.CustomerService
         {
             _logger.LogInformation("Initiated Email Address update on {accountNumber}", accountNumber);
 
-            var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
+            var account = _accountRepository.GetByNumber(accountNumber);
             if (account is null)
             {
                 _logger.LogWarning("Failed to update email address: invalid account number");
                 return Result.Failure(MessageAccountNotFound(accountNumber));
             }
 
-            var customer = _customerRepository.GetCustomerById(account.CustomerID);
+            var customer = _customerRepository.GetById(account.CustomerId);
+            if (customer is null)
+                return Result.Failure("Error: invalid account number");
 
             var result = customer.ChangeEmailAddress(emailAddress);
 
@@ -64,7 +69,7 @@ namespace SimpleBankingSystem.Application.Service.CustomerService
                 return result;
             }
 
-            _customerRepository.Save();
+            _customerRepository.Update(customer);
             _logger.LogInformation("Email Address updated successfully for {accountNumber}", accountNumber);
 
             return Result.Success("Email address updated successfully");

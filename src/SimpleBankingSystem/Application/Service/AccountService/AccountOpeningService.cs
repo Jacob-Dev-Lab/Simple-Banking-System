@@ -5,6 +5,7 @@ using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.Enums;
 using SimpleBankingSystem.Domain.ErrorHandler;
 using SimpleBankingSystem.Domain.Interfaces;
+using SimpleBankingSystem.Infrastructure.Interface;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {
@@ -17,29 +18,6 @@ namespace SimpleBankingSystem.Application.Service.AccountService
         private readonly IGenerateAccountNumber _generateAccountNumber = generateAccountNumber;
         private readonly ICustomerRepository _customerRepository = customerRepository;
         private readonly ILogger<AccountOpeningService> _logger = logger;
-
-        /* This method is responsible for processing the account opening logic,
-         * including creating the account, linking it to the customer,
-         * and saving the changes to the repositories.*/
-        private string AccountOpenningProcessor(Guid customerId, Customer customer, AccountType accountType)
-        {
-            Account account;
-
-            string accountNumber = _generateAccountNumber.Generate();
-
-            if (accountType.Equals(AccountType.Savings))
-                account = new SavingsAccount(customerId, accountNumber);
-            else
-                account = new CurrentAccount(customerId, accountNumber);
-
-            _accountRepository.Add(account);
-            customer.LinkAccountNumber(accountNumber);
-
-            _accountRepository.Save();
-            _customerRepository.Save();
-
-            return accountNumber;
-        }
 
         /* The OpenAdditionalSavingsAccount and OpenAdditionalCurrentAccount methods 
          * first check if the customer already has an account of the specified type 
@@ -55,12 +33,17 @@ namespace SimpleBankingSystem.Application.Service.AccountService
             if (ruleCheck.IsFailure)
                 return ruleCheck;
 
-            var customerId = _accountRepository.GetAccountByAccountNumber(accountNumber).CustomerID;
-            var customer = _customerRepository.GetCustomerById(customerId);
+            var account = _accountRepository.GetByNumber(accountNumber);
+            if (account is null)
+                return Result.Failure("Account not found.");
 
-            var savingsAccountNumber = AccountOpenningProcessor(customerId, customer, AccountType.Savings);
+            var customerId = account.CustomerId;
 
-            return Result.Success("Your savings account number is: " + savingsAccountNumber);
+            var result = AccountOpenningProcessor(customerId, AccountType.Savings);
+            if (result.IsFailure)
+                return result;
+
+            return Result.Success("Your savings account number is: " + result.Message);
         }
 
         public Result OpenAdditionalCurrentAccount(string accountNumber)
@@ -69,12 +52,15 @@ namespace SimpleBankingSystem.Application.Service.AccountService
             if (ruleCheck.IsFailure)
                 return ruleCheck;
 
-            var customerId = _accountRepository.GetAccountByAccountNumber(accountNumber).CustomerID;
-            var customer = _customerRepository.GetCustomerById(customerId);
+            var account = _accountRepository.GetByNumber(accountNumber);
+            if (account is null)
+                return Result.Failure("Account not Found");
 
-            var currentAccountNumber = AccountOpenningProcessor(customerId, customer, AccountType.Current);
+            var customerId = account.CustomerId;
 
-            return Result.Success("Your current account number is: " + currentAccountNumber);
+            var result = AccountOpenningProcessor(customerId, AccountType.Current);
+
+            return Result.Success("Your current account number is: " + result.Message);
         }
 
         /* The OpenNewSavingsAccount and OpenNewCurrentAccount methods are responsible 
@@ -84,24 +70,31 @@ namespace SimpleBankingSystem.Application.Service.AccountService
          * Finally, they return a success result with the new account number.*/
         public Result OpenNewSavingsAccount(Customer customer)
         {
-            _logger.LogInformation("Initiated account opening for customer: {CustomerId}", customer.CustomerId);
+            if (customer is null)
+                return Result.Failure("Invalid customer, try again.");
+
+            _logger.LogInformation("Initiated account opening for customer: {CustomerId}", customer.Id);
             _customerRepository.Add(customer);
 
-            var savingsAccountNumber = AccountOpenningProcessor(customer.CustomerId, customer, AccountType.Savings);
+            var result = AccountOpenningProcessor(customer.Id, AccountType.Savings);
 
-            _logger.LogInformation("Successfully opened savings account for customer: {CustomerId}", customer.CustomerId);
+            _logger.LogInformation("Successfully opened savings account for customer: {CustomerId}", customer.Id);
 
-            return Result.Success("Your savings account number is: " + savingsAccountNumber);
+            return Result.Success("Your savings account number is: " + result.Message);
         }
 
         public Result OpenNewCurrentAccount(Customer customer)
         {
-            _logger.LogInformation("Initiated account opening for customer: {CustomerId}", customer.CustomerId);
+            if (customer is null)
+                return Result.Failure("Invalid customer, try again.");
+
+            _logger.LogInformation("Initiated account opening for customer: {CustomerId}", customer.Id);
+
             _customerRepository.Add(customer);
 
-            var currentAccountNumber = AccountOpenningProcessor(customer.CustomerId, customer, AccountType.Current);
+            var currentAccountNumber = AccountOpenningProcessor(customer.Id, AccountType.Current);
 
-            _logger.LogInformation("Successfully opened current account for customer: {CustomerId}", customer.CustomerId);
+            _logger.LogInformation("Successfully opened current account for customer: {CustomerId}", customer.Id);
 
             return Result.Success("Your current account number is: " + currentAccountNumber);
         }
@@ -113,13 +106,51 @@ namespace SimpleBankingSystem.Application.Service.AccountService
          * If no matching account is found, it returns a success result.*/
         public Result EnsureCustomerDoesNotHaveAccountType(string accountNumber, AccountType accountType)
         {
-            var customerID = _accountRepository.GetAccountByAccountNumber(accountNumber).CustomerID;
-            var accounts = _accountRepository.GetAccountByAccountId(customerID);
+            if (string.IsNullOrEmpty(accountNumber))
+                return Result.Failure("Error: Enter a valid account number.");
 
-            if (accounts.Any(x => x.AccountType == accountType))
+            var account = _accountRepository.GetByNumber(accountNumber);
+            if (account is null)
+                return Result.Failure("Account not Found, enter a valid account number.");
+
+            var accounts = _accountRepository.GetByCustomerId(account.CustomerId);
+
+            var requestedType = accountType switch
+            {
+                AccountType.Current => typeof(CurrentAccount),
+                AccountType.Savings => typeof(SavingsAccount),
+                _ => throw new ArgumentOutOfRangeException(nameof(accountType)),
+            };
+
+            if (accounts.Any(a => a.GetType() == requestedType))
                 return Result.Failure($"Existing {accountType} Account found");
 
             return Result.Success();
+        }
+
+        /* This method is responsible for processing the account opening logic,
+         * including creating the account, linking it to the customer,
+         * and saving the changes to the repositories.*/
+        private Result AccountOpenningProcessor(Guid customerId, AccountType accountType)
+        {
+            if (customerId == Guid.Empty)
+                return Result.Failure("Customer ID cannot be empty");
+
+            string accountNumber = _generateAccountNumber.Generate();
+
+            Account? account = accountType switch
+            {
+                AccountType.Current => new CurrentAccount(customerId, accountNumber),
+                AccountType.Savings => new SavingsAccount(customerId, accountNumber),
+                _ => null
+            };
+
+            if (account is null)
+                return Result.Failure("Invalid account type, enter a valid account type.");
+
+            _accountRepository.Add(account);
+
+            return Result.Success(accountNumber);
         }
     }
 }

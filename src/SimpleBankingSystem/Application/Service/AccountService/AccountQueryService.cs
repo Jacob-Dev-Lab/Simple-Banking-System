@@ -1,6 +1,7 @@
 ﻿using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
+using SimpleBankingSystem.Infrastructure.Interface;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {
@@ -14,7 +15,10 @@ namespace SimpleBankingSystem.Application.Service.AccountService
         // provided account number and returns its balance.
         public Result GetAccountBalance(string accountNumber)
         {
-            var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
+            var account = _accountRepository.GetByNumber(accountNumber);
+            if (account is null)
+                return Result.Failure("Error: invalid account number");
+
             return Result.Success("Your account balance = £" + account.Balance);
         }
 
@@ -22,7 +26,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
          * the specified account number and returns them as a read-only collection.*/
         public IReadOnlyCollection<Transaction> GetTransactions(string accountNumber)
         {
-            return _transactionRepository.GetTransactionByAccountNumber(accountNumber);
+            return _transactionRepository.GetByAccountNumber(accountNumber).ToList();
         }
 
     }

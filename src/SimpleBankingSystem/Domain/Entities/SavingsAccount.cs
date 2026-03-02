@@ -1,11 +1,15 @@
-using SimpleBankingSystem.Domain.Enums;
+using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Domain
 {
-    public sealed class SavingsAccount(Guid customerID, string accountNumber, decimal balance = 0m) : 
-        Account(customerID, accountNumber, AccountType.Savings, balance)
+    public class SavingsAccount : Account
     {
+        public SavingsAccount(Guid customerId, string accountNumber, decimal balance = 0m)
+            : base(customerId, accountNumber, balance) { }
+
+        protected SavingsAccount() : base() { } // EF constructor
+
         private static readonly decimal _minimumBalance = 50m;
 
         public override Result Withdraw(decimal amount)

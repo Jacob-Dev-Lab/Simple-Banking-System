@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 
 using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Application.Service.AccountService;
 using SimpleBankingSystem.Application.Service.CustomerService;
+using SimpleBankingSystem.Data;
 using SimpleBankingSystem.Domain.Interfaces;
 using SimpleBankingSystem.Infrastructure.Interface;
 using SimpleBankingSystem.Infrastructure.Repositories;
@@ -23,13 +25,16 @@ namespace SimpleBankingSystem
             var host = Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
+                    services.AddDbContext<BankDbContext>(option => option
+                        .UseSqlServer("Server=localhost\\SQLEXPRESS;Database=BankDb;Trusted_Connection=True;TrustServerCertificate=True;"));
+
                     services.AddSingleton<IFileConnection, FileConnection>();
                     
                     services.AddSingleton<IGenerateAccountNumber, GuidAccountNumber>();
 
-                    services.AddSingleton<ICustomerRepository, FileCustomerRepository>();
-                    services.AddSingleton<IAccountRepository, FileAccountRepository>();
-                    services.AddSingleton<ITransactionRepository, FileTransactionRepository>();
+                    services.AddScoped<ICustomerRepository, EfCustomerRepo>();
+                    services.AddScoped<IAccountRepository, EfAccountRepo>();
+                    services.AddScoped<ITransactionRepository, EfTransactionRepo>();
 
                     services.AddTransient<ICreateCustomerService, CreateCustomerService>();
                     services.AddTransient<IAccountOpeningService, AccountOpeningService>();
@@ -65,10 +70,6 @@ namespace SimpleBankingSystem
                 .Build();
 
             Log.Information("Starting application.");
-
-            host.Services.GetRequiredService<ICustomerRepository>()?.Load();
-            host.Services.GetRequiredService<IAccountRepository>()?.Load();
-            host.Services.GetRequiredService<ITransactionRepository>()?.Load();
 
             var app = host.Services.GetRequiredService<IBankApp>();
             app.Run();

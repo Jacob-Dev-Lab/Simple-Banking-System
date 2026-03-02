@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.Net;
 using System.Net.Mail;
 using SimpleBankingSystem.Application.Service;
 using SimpleBankingSystem.Domain.ErrorHandler;
@@ -8,6 +6,12 @@ namespace SimpleBankingSystem.Domain.Entities
 {
     public sealed class Customer
     {
+        public Guid Id { get; private set; }
+        public string LastName { get; private set; }
+        public string OtherNames { get; private set; }
+        public DateOnly DateOfBirth { get; private set; }
+        public string Email { get; private set; }
+
         public Customer(string lastName, string otherNames, DateOnly dateOfBirth, string email)
         {
             if (string.IsNullOrWhiteSpace(lastName))
@@ -30,28 +34,14 @@ namespace SimpleBankingSystem.Domain.Entities
 
             EmailValidator.Validate(email);
 
-            CustomerId = Guid.NewGuid();
+            Id = Guid.NewGuid();
             LastName = lastName;
             OtherNames = otherNames;
             DateOfBirth = dateOfBirth;
             Email = email;
         }
-        public Guid CustomerId { get; }
-        public string LastName { get; private set; }
-        public string OtherNames { get; private set; }
-        public DateOnly DateOfBirth { get; }
-        public string Email { get; private set; }
 
-        private readonly List<string> _accountNumbers = [];
-        public IReadOnlyCollection<string> AccountNumbers => _accountNumbers.AsReadOnly();
-
-        public void LinkAccountNumber(string accountNumber)
-        {
-            if (string.IsNullOrEmpty(accountNumber) || string.IsNullOrWhiteSpace(accountNumber))
-                throw new ArgumentException("Unable to link account, try again.");
-
-            _accountNumbers.Add(accountNumber);
-        }
+        public Customer(){} //EF Core Constructor
 
         public Result ChangeLastname(string newLastName)
         {

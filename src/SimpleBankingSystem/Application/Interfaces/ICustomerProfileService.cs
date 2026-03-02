@@ -1,5 +1,4 @@
-﻿using System.Net.Mail;
-using SimpleBankingSystem.Domain.ErrorHandler;
+﻿using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Application.Interfaces
 {

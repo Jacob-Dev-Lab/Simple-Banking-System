@@ -1,11 +1,15 @@
-using SimpleBankingSystem.Domain.Enums;
+using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Domain
 {
-    public sealed class CurrentAccount(Guid customerID, string accountNumber, decimal balance = 0m) : 
-        Account(customerID, accountNumber, AccountType.Current, balance)
+    public class CurrentAccount : Account
     {
+        public CurrentAccount(Guid customerId, string accountNumber, decimal balance = 0m)
+            : base(customerId, accountNumber, balance) { }
+
+        protected CurrentAccount() : base() { } // EF constructor
+
         public override Result Withdraw(decimal amount)
         {
             var activeCheck = EnsureAccountIsActive();

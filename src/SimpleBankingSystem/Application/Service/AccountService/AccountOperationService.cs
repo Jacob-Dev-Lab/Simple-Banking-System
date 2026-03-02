@@ -3,6 +3,7 @@ using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.Enums;
 using SimpleBankingSystem.Domain.ErrorHandler;
+using SimpleBankingSystem.Infrastructure.Interface;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {
@@ -24,22 +25,25 @@ namespace SimpleBankingSystem.Application.Service.AccountService
         public Result Deposit(string accountNumber, decimal amount)
         {
             _logger.LogInformation("Deposit Initiated on {AccountNumber}", accountNumber);
-            var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
-            
-            var ruleCheck = account.Deposit(amount);
-            if (ruleCheck.IsFailure)
+
+            var account = _accountRepository.GetByNumber(accountNumber);
+            if (account is null)
+                return Result.Failure("Error: invalid account number");
+
+            var depositCheck = account.Deposit(amount);
+
+            if (depositCheck.IsFailure)
             {
                 _logger.LogWarning("Deposit transaction failed for account {AccountNumber}: {Reason}",
-                    accountNumber, ruleCheck.Message);
-                return ruleCheck;
+                    accountNumber, depositCheck.Message);
+
+                return depositCheck;
             }
 
             Transaction transaction = new(accountNumber, amount, TransactionType.Deposit);
+
             _transactionRepository.Add(transaction);
-
-            account.LinkTransaction(transaction.TransactionID);
-
-            _accountRepository.Save();
+            _accountRepository.Update(account);
             _logger.LogInformation("Deposit transaction completed successfully");
 
             return Result.Success($"£{amount}: Deposited successsfully");
@@ -48,8 +52,11 @@ namespace SimpleBankingSystem.Application.Service.AccountService
         public Result Withdraw(string accountNumber, decimal amount)
         {
             _logger.LogInformation("Withdrawal Initiated on {accountNumber}", accountNumber);
-            var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
-            
+
+            var account = _accountRepository.GetByNumber(accountNumber);
+            if (account is null)
+                return Result.Failure("Error: invalid account number");
+
             var ruleCheck = account.Withdraw(amount);
             if (ruleCheck.IsFailure)
             {
@@ -61,9 +68,7 @@ namespace SimpleBankingSystem.Application.Service.AccountService
             Transaction transaction = new(accountNumber, amount, TransactionType.Withdrawal);
             _transactionRepository.Add(transaction);
 
-            account.LinkTransaction(transaction.TransactionID);
-
-            _accountRepository.Save();
+            _accountRepository.Update(account);
             _logger.LogInformation("Withdrawal transaction completed successfully");
 
             return Result.Success($"£{amount}: Withdrawn successsfully");

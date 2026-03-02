@@ -1,49 +1,46 @@
 using SimpleBankingSystem.Domain.Enums;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace SimpleBankingSystem.Domain
+namespace SimpleBankingSystem.Domain.Entities
 {
     public abstract class Account
     {
-        protected Account(Guid customerID, string accountNumber, AccountType accountType, decimal balance = 0m)
+        public int Id { get; private set; }
+        public Guid CustomerId { get; private set; }
+        public string AccountNumber { get; private set; }
+        public decimal Balance { get; protected set; }
+        public DateOnly DateCreated { get; private set; }
+        public bool IsActive { get; protected set; }
+
+        protected Account(Guid customerId, string accountNumber, decimal balance = 0m)
         {
-            if (customerID.Equals(Guid.Empty))
-                throw new ArgumentException("Customer ID cannot be empty.", nameof(customerID));
+            if (customerId.Equals(Guid.Empty))
+                throw new ArgumentException("Customer ID cannot be empty.", nameof(customerId));
 
             if (string.IsNullOrWhiteSpace(accountNumber))
                 throw new ArgumentException("Account number is required.", nameof(accountNumber));
 
-            if (!Enum.IsDefined(accountType))
-                throw new ArgumentOutOfRangeException(nameof(accountType));
-
-            CustomerID = customerID;
+            CustomerId = customerId;
             AccountNumber = accountNumber;
-            AccountType = accountType;
-
             Balance = balance;
             DateCreated = DateOnly.FromDateTime(DateTime.Now);
             IsActive = true;
         }
 
-        //public Account() { }
+        protected Account() { } //EF Core Constructor
 
-        public Guid CustomerID { get; }
-        public string AccountNumber { get; }
-        public AccountType AccountType { get; }
-        public decimal Balance { get; protected set; }
-        public DateOnly DateCreated { get; }
-        public bool IsActive { get; protected set; }
+        //Today
+        // private readonly List<Guid> _transactionsID = [];
+        // public IReadOnlyCollection<Guid> TransactionsID => _transactionsID.AsReadOnly();
 
-        private readonly List<Guid> _transactionsID = [];
-        public IReadOnlyCollection<Guid> TransactionsID => _transactionsID.AsReadOnly();
+        //Today
+        // public void LinkTransaction(Guid transactionID)
+        // {
+        //     if (transactionID.Equals(Guid.Empty))
+        //         throw new ArgumentException("Transaction ID cannot be empty.", nameof(transactionID));
 
-        public void LinkTransaction(Guid transactionID)
-        {
-            if (transactionID.Equals(Guid.Empty))
-                throw new ArgumentException("Transaction ID cannot be empty.", nameof(transactionID));
-
-            _transactionsID.Add(transactionID);
-        }
+        //     _transactionsID.Add(transactionID);
+        // }
 
         public virtual Result Deposit(decimal amount)
         {

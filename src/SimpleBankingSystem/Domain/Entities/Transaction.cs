@@ -2,17 +2,29 @@
 
 namespace SimpleBankingSystem.Domain.Entities
 {
-    public class Transaction(string accountNumber, decimal amount, TransactionType transactionType)
+    public class Transaction
     {
-        public Guid TransactionID { get; } = Guid.NewGuid();
-        public string AccountNumber { get; } = accountNumber;
-        public decimal Amount { get; } = amount;
-        public TransactionType TransactionType { get; } = transactionType;
-        public DateOnly TransactionDate { get; } = DateOnly.FromDateTime(DateTime.Now);
+        public Guid Id { get; private set; }
+        public int AccountId { get; private set; }
+        public string AccountNumber { get; private set; }
+        public decimal Amount { get; private set; }
+        public TransactionType Type { get; private set; }
+        public DateOnly TimeStamp { get; private set; }
+
+        public Transaction(string accountNumber, decimal amount, TransactionType transactionType)
+        {
+            Id = Guid.NewGuid();
+            AccountNumber = accountNumber;
+            Amount = amount;
+            Type = transactionType;
+            TimeStamp = DateOnly.FromDateTime(DateTime.UtcNow);
+        }
+
+        public Transaction(){} //EF Core Constructor
 
         public override string ToString()
         {
-            return $"{TransactionDate} - {TransactionID} | {TransactionType} | {Amount}";
+            return $"{TimeStamp} - {Id} | {Type} | {Amount}";
         }
     }
 }

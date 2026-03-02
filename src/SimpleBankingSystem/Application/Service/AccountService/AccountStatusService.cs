@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SimpleBankingSystem.Application.Interfaces;
+﻿using SimpleBankingSystem.Application.Interfaces;
 using SimpleBankingSystem.Domain.ErrorHandler;
+using SimpleBankingSystem.Infrastructure.Interface;
 
 namespace SimpleBankingSystem.Application.Service.AccountService
 {
@@ -19,26 +15,32 @@ namespace SimpleBankingSystem.Application.Service.AccountService
          * If the operation is successful, it saves the changes to the repository and returns a success result.*/
         public Result ActivateAccount(string accountNumber)
         {
-            var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
+            var account = _accountRepository.GetByNumber(accountNumber);
+            if (account is null)
+                return Result.Failure("Error: invalid account number");
+
             var ruleCheck = account.Activate();
             
             if (ruleCheck.IsFailure)
                 return ruleCheck;
 
-            _accountRepository.Save();
+            _accountRepository.Update(account);
 
             return Result.Success("Account activated successfully.");
         }
 
         public Result DeActivateAccount(string accountNumber)
         {
-            var account = _accountRepository.GetAccountByAccountNumber(accountNumber);
+            var account = _accountRepository.GetByNumber(accountNumber);
+            if (account is null)
+                return Result.Failure("Error: invalid account number");
+
             var ruleCheck = account.Deactivate();
 
             if (ruleCheck.IsFailure)
                 return ruleCheck;
 
-            _accountRepository.Save();
+            _accountRepository.Update(account);
 
             return Result.Success("Account deactivated successfully.");
         }
