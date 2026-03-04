@@ -15,8 +15,8 @@ namespace SimpleBankingSystem.Application.Service.AccountService
         ILogger<AccountOpeningService> logger) : IAccountOpeningService
     {
         private readonly IAccountRepository _accountRepository = accountRepository;
-        private readonly IGenerateAccountNumber _generateAccountNumber = generateAccountNumber;
         private readonly ICustomerRepository _customerRepository = customerRepository;
+        private readonly IGenerateAccountNumber _generateAccountNumber = generateAccountNumber;
         private readonly ILogger<AccountOpeningService> _logger = logger;
 
         /* The OpenAdditionalSavingsAccount and OpenAdditionalCurrentAccount methods 

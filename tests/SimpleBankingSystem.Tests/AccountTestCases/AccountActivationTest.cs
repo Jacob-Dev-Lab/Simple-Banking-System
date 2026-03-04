@@ -1,12 +1,12 @@
-﻿using SimpleBankingSystem.Domain;
+﻿using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace TestSimpleBankingSystem.Tests.EntityBehaviourTest.AccountEntityTests
+namespace SimpleBankingSystem.Tests.Account
 {
-    public class ActivateAccountTest
+    public class AccountActivationTest
     {
         [Fact]
-        public void ActivateAccount_Should_Activate_A_Deactivated_Account()
+        public void Should_Activate_A_Deactivated_Account()
         {
             // Arrange
             Account account = new SavingsAccount(Guid.NewGuid(), "1234567890");
@@ -21,7 +21,7 @@ namespace TestSimpleBankingSystem.Tests.EntityBehaviourTest.AccountEntityTests
         }
 
         [Fact]
-        public void Activating_An_Activated_Account_Should_Not_Cause_A_Change()
+        public void Should_Not_Cause_A_Change_On_An_Activated_Account()
         {
             // Arrange
             Account account = new SavingsAccount(Guid.NewGuid(), "1234567890");

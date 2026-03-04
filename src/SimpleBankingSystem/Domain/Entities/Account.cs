@@ -1,4 +1,3 @@
-using SimpleBankingSystem.Domain.Enums;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
 namespace SimpleBankingSystem.Domain.Entities
@@ -20,6 +19,9 @@ namespace SimpleBankingSystem.Domain.Entities
             if (string.IsNullOrWhiteSpace(accountNumber))
                 throw new ArgumentException("Account number is required.", nameof(accountNumber));
 
+            if (!accountNumber.Length.Equals(10))
+                throw new ArgumentException("Error: please try again.", nameof(accountNumber));
+
             CustomerId = customerId;
             AccountNumber = accountNumber;
             Balance = balance;
@@ -28,19 +30,6 @@ namespace SimpleBankingSystem.Domain.Entities
         }
 
         protected Account() { } //EF Core Constructor
-
-        //Today
-        // private readonly List<Guid> _transactionsID = [];
-        // public IReadOnlyCollection<Guid> TransactionsID => _transactionsID.AsReadOnly();
-
-        //Today
-        // public void LinkTransaction(Guid transactionID)
-        // {
-        //     if (transactionID.Equals(Guid.Empty))
-        //         throw new ArgumentException("Transaction ID cannot be empty.", nameof(transactionID));
-
-        //     _transactionsID.Add(transactionID);
-        // }
 
         public virtual Result Deposit(decimal amount)
         {

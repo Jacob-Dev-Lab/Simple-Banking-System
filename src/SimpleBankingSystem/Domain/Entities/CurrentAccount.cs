@@ -1,7 +1,6 @@
-using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace SimpleBankingSystem.Domain
+namespace SimpleBankingSystem.Domain.Entities
 {
     public class CurrentAccount : Account
     {

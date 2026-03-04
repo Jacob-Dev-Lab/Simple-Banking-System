@@ -4,35 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleBankingSystem.Domain;
+using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace TestSimpleBankingSystem.Tests.EntityBehaviourTest.AccountEntityTests
+namespace SimpleBankingSystem.Tests.Account
 {
-    public class DepositBehaviouralTest
+    public class WithdrawalBehaviouralTest
     {
         [Fact]
-        public void Valid_Amount_Deposit_Should_Increase_Balance()
+        public void Amount_Should_Reduce_Balance_When_Amount_Is_Valid()
         {
             // Arrange
             Account account = new SavingsAccount(Guid.NewGuid(), "1234567890");
+            account.Deposit(100);
 
             // Act
-            Result result = account.Deposit(100);
+            Result result = account.Withdraw(50);
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(100, account.Balance);
+            Assert.Equal(50, account.Balance);
         }
 
         [Fact]
-        public void Invalid_Amount_Deposit_Should_Not_Affect_Balance()
+        public void Should_Not_Affect_Balance_When_Amount_Is_Invalid()
         {
             // Arrange
             Account account = new CurrentAccount(Guid.NewGuid(), "2345678901");
             account.Deposit(100);
 
             // Act
-            Result result = account.Deposit(-30);
+            Result result = account.Withdraw(0);
 
             // Assert
             Assert.True(result.IsFailure);
@@ -41,19 +43,20 @@ namespace TestSimpleBankingSystem.Tests.EntityBehaviourTest.AccountEntityTests
         }
 
         [Fact]
-        public void Deposit_To_A_Deactivated_Account_Should_Be_Impossible()
+        public void Should_Be_Impossible_On_A_Deactivated_Account()
         {
             // Arrange
             Account account = new CurrentAccount(Guid.NewGuid(), "2345678901");
+            account.Deposit(100);
             account.Deactivate();
 
             // Act
-            Result result = account.Deposit(100);
+            Result result = account.Withdraw(50);
 
             // Assert
             Assert.True(result.IsFailure);
             Assert.Equal("Transaction canceled: account is deactivated.", result.Message);
-            Assert.Equal(0, account.Balance);
+            Assert.Equal(100, account.Balance);
         }
     }
 }
