@@ -158,8 +158,7 @@ This project helped me strengthen my understanding of:
 
 ---
 
-## 🔧 Future Improvements
-- Replace file storage with EF Core + SQL Server  
+## 🔧 Future Improvements  
 - A web‑based version using ASP.NET Core  
 - Add authentication and authorization
 
