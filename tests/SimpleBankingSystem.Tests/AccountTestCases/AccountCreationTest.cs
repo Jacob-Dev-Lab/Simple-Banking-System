@@ -1,6 +1,6 @@
 ﻿using SimpleBankingSystem.Domain.Entities;
 
-namespace SimpleBankingSystem.Tests.EntityBehaviourTest.AccountEntityTests
+namespace SimpleBankingSystem.Tests.Account
 {
     public class AccountCreationTest
     {
@@ -30,7 +30,7 @@ namespace SimpleBankingSystem.Tests.EntityBehaviourTest.AccountEntityTests
 
             // Assert
             Assert.True(account.IsActive);
-            Assert.Equal("1234567890", account.AccountNumber);
+            Assert.Equal("0123456789", account.AccountNumber);
             Assert.Equal(0, account.Balance);
             Assert.Equal(0, account.Id);
         }

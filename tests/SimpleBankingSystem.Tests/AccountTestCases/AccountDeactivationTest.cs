@@ -1,7 +1,7 @@
 ﻿using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace SimpleBankingSystem.Tests.Account
+namespace SimpleBankingSystem.Tests.AccountTestCases
 {
     public class AccountDeactivationTest
     {
@@ -9,7 +9,7 @@ namespace SimpleBankingSystem.Tests.Account
         public void Should_Deactivate_An_Activated_Account()
         {
             // Arrange
-            Account account = new SavingsAccount(Guid.NewGuid(), "1234567890");
+            var account = new SavingsAccount(Guid.NewGuid(), "1234567890");
 
             // Act
             Result result = account.Deactivate();
@@ -23,7 +23,7 @@ namespace SimpleBankingSystem.Tests.Account
         public void Should_Not_Cause_A_Change_On_An_Already_Deactivated_Account()
         {
             // Arrange
-            Account account = new SavingsAccount(Guid.NewGuid(), "1234567890");
+            var account = new SavingsAccount(Guid.NewGuid(), "1234567890");
             account.Deactivate();
 
             // Act

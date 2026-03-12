@@ -7,7 +7,7 @@ using SimpleBankingSystem.Domain;
 using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace SimpleBankingSystem.Tests.Account
+namespace SimpleBankingSystem.Tests.AccountTestCases
 {
     public class WithdrawalBehaviouralTest
     {
@@ -15,7 +15,7 @@ namespace SimpleBankingSystem.Tests.Account
         public void Amount_Should_Reduce_Balance_When_Amount_Is_Valid()
         {
             // Arrange
-            Account account = new SavingsAccount(Guid.NewGuid(), "1234567890");
+            var account = new SavingsAccount(Guid.NewGuid(), "1234567890");
             account.Deposit(100);
 
             // Act
@@ -30,7 +30,7 @@ namespace SimpleBankingSystem.Tests.Account
         public void Should_Not_Affect_Balance_When_Amount_Is_Invalid()
         {
             // Arrange
-            Account account = new CurrentAccount(Guid.NewGuid(), "2345678901");
+            var account = new CurrentAccount(Guid.NewGuid(), "2345678901");
             account.Deposit(100);
 
             // Act
@@ -46,7 +46,7 @@ namespace SimpleBankingSystem.Tests.Account
         public void Should_Be_Impossible_On_A_Deactivated_Account()
         {
             // Arrange
-            Account account = new CurrentAccount(Guid.NewGuid(), "2345678901");
+            var account = new CurrentAccount(Guid.NewGuid(), "2345678901");
             account.Deposit(100);
             account.Deactivate();
 

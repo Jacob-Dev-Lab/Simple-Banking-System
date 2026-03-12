@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using SimpleBankingSystem.Domain;
 using SimpleBankingSystem.Domain.Entities;
 
 namespace SimpleBankingSystem.Data
@@ -9,13 +8,9 @@ namespace SimpleBankingSystem.Data
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Account> Accounts { get; set; }
-        //public DbSet<CurrentAccount> CurrentAccounts { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
 
-        public BankDbContext(DbContextOptions<BankDbContext> options) : base(options)
-        {
-
-        }
+        public BankDbContext(DbContextOptions<BankDbContext> options) : base(options){}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -26,6 +21,10 @@ namespace SimpleBankingSystem.Data
 
             builder.Entity<Account>()
                 .Property(a => a.Balance)
+                .HasColumnType("decimal(18, 2)");
+
+            builder.Entity<Transaction>()
+                .Property(t => t.Amount)
                 .HasColumnType("decimal(18, 2)");
         }
     }

@@ -1,6 +1,6 @@
 ﻿using SimpleBankingSystem.Domain.Entities;
 
-namespace SimpleBankingSystem.Tests.CustomerTests
+namespace SimpleBankingSystem.Tests.CustomerTestCases
 {
     public class CustomerCreationTest
     {

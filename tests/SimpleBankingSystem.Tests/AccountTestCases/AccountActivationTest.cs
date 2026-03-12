@@ -1,7 +1,7 @@
 ﻿using SimpleBankingSystem.Domain.Entities;
 using SimpleBankingSystem.Domain.ErrorHandler;
 
-namespace SimpleBankingSystem.Tests.Account
+namespace SimpleBankingSystem.Domain.Entities
 {
     public class AccountActivationTest
     {
